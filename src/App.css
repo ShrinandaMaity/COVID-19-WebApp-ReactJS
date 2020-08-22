@@ -1,0 +1,153 @@
+* {
+    margin: 0;
+}
+
+body {
+    background: linear-gradient(to bottom right, #06021d 18%, #330867 109%);
+    background-color: #330867;
+}
+
+.app {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px;
+}
+
+.app_dropdown {
+    background: linear-gradient(to top, rgb(30,51,168), #0d0635);
+    box-shadow: 0 0 2px #6486f3;
+}
+
+.app_dropdown:hover {
+    box-shadow: 0 0 4px #6486f3;
+}
+
+.select_dropdown {
+    color: white !important;
+}
+
+.app_header>h1 {
+    text-transform: uppercase;
+    background: linear-gradient(to right, #30CFD0 0%, #99ff99 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+}
+
+.app_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content: space-between;
+}
+
+.dropdown_item {
+    color: white !important;
+    background: linear-gradient(to right, #06021d 18%, #330867 109%) !important;
+}
+
+.dropdown_item:hover {
+    background: linear-gradient(to right, #0f0542 18%, #330867 109%) !important;
+}
+
+.app_left {
+    flex: 0.85;
+}
+
+.app_stats {
+    display: flex;
+    justify-content: space-between;
+}
+
+.app_right {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 6px rgb(252, 196, 196) !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    text-align: center;
+    color: white !important;
+    border-radius: 20px !important;
+    
+}
+
+.app_right .MuiCardContent-root {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.app_graph {
+    flex-grow: 1;
+}
+
+.app_graphSettings {
+    display: flex;
+    margin-top: 15px;
+    justify-content: space-between;
+}
+
+.app_graphTitle {
+    margin-top: 2px;
+    margin-bottom: 12px;
+}
+
+.inactive {
+    text-transform: none !important;
+    color: white !important;
+}
+
+.active {
+    text-transform: none !important;
+    color: yellow !important;
+}
+
+.tableHead_buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.table_sortBy {
+    display: flex !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+.table_title {
+    font-size: 25px;
+    font-family: "Lucida Console", Courier, monospace;
+    margin-top: 15px;
+}
+
+.sortby {
+    width: 70px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex-grow: 1;
+}
+
+.sortButton {
+    margin-bottom: 0 !important;
+}
+
+.sortBy_cases,
+.sortBy_deaths {
+    background: rgba(255,0,0,0.2) !important;
+}
+
+.sortBy_recovered {
+    background: rgba(173,255,47,0.2) !important;
+}
+
+.sort_tag {
+    color: white !important;
+    font-size: 10px !important;
+    margin-top: 0 !important;
+}
+
+@media (max-width: 600px) {
+    .app {
+        flex-direction: column;
+    }
+    .app_right {
+        margin-top: 20px !important;
+    }
+}
