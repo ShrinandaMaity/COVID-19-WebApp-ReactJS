@@ -100,27 +100,36 @@ function App() {
 
         <div className="app_stats">
               <InfoBox
-                isRed
                 active={casesType === "cases"}
                 onClick={(e) => setCasesType('cases')}
                 title="Coronavirus Cases" 
-                cases={prettyPrintStat(countryInfo.todayCases)} 
+                cases={countryInfo.todayCases} 
                 total={prettyPrintStat(countryInfo.cases)}
+                casesType="cases"
               />
               <InfoBox
                 active={casesType === "recovered"}
                 onClick={(e) => setCasesType('recovered')}
                 title="Recovered" 
-                cases={prettyPrintStat(countryInfo.todayRecovered)} 
+                cases={countryInfo.todayRecovered} 
                 total={prettyPrintStat(countryInfo.recovered)}
+                casesType="recovered"
               />
               <InfoBox
-                isRed
+                active={casesType === "active"}
+                onClick={(e) => setCasesType('active')}
+                title="Active Cases"
+                cases={countryInfo.todayCases-countryInfo.todayDeaths-countryInfo.todayRecovered}
+                total={prettyPrintStat(countryInfo.active)}
+                casesType="active"
+              />
+              <InfoBox
                 active={casesType === "deaths"}
                 onClick={(e) => setCasesType('deaths')}
                 title="Deaths" 
-                cases={prettyPrintStat(countryInfo.todayDeaths)} 
+                cases={countryInfo.todayDeaths} 
                 total={prettyPrintStat(countryInfo.deaths)}
+                casesType="deaths"
               />
         </div>
 
@@ -163,8 +172,8 @@ function App() {
                 <div>
                   {
                     sortBy=='deaths'
-                    ? <SortIcon className="sortButton" style={{ color: "red" }}/>
-                    : <SwapVertSharpIcon className="sortButton" style={{ color: "red" }}/>
+                    ? <SortIcon className="sortButton" style={{ color: "rgb(128,128,128)" }}/>
+                    : <SwapVertSharpIcon className="sortButton" style={{ color: "rgb(128,128,128)" }}/>
                   }
                   <div className="sort_tag">deaths</div>
                 </div>

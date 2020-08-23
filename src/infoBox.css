@@ -8,16 +8,38 @@
     margin-right: 15px;
 }
 
-.infoBox--selected {
+.todays--cases {
+    border-top: 5px solid red;
+}
+
+.todays--recovered {
     border-top: 5px solid greenyellow;
 }
 
-.infoBox--red {
-    border-color: red;
+.todays--deaths {
+    border-top: 5px solid grey;
 }
 
-.infoBox_cases_green {
-    color: lightgreen !important;
+.todays--active {
+    border-top: 5px solid blue;
+}
+
+.infoBox_deaths {
+    color: grey;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.infoBox_active {
+    color: blue;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.infoBox_recovered {
+    color: lightgreen;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
 }
 
 .infoBox_cases {

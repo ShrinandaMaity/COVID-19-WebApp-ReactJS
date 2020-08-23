@@ -19,7 +19,7 @@ const options = {
       intersect: false,
       callbacks: {
         label: function (tooltipItem, data) {
-          return numeral(tooltipItem.value).format("+0,0");
+          return numeral(tooltipItem.value).format("0,0");
         },
       },
     },
@@ -62,11 +62,11 @@ const buildChartData = (data, casesType, country) => {
     if (lastDataPoint) {
       let newDataPoint = {
           x: date,
-          y: data[casesType][date] - lastDataPoint,
+          y: casesType=='active'?data['cases'][date]-data['recovered'][date]-data['deaths'][date]:data[casesType][date] - lastDataPoint,
       };
       chartData.push(newDataPoint);
     }
-    lastDataPoint = data[casesType][date];
+    lastDataPoint = casesType=='active'?data['cases'][date]-data['recovered'][date]-data['deaths'][date]:data[casesType][date];
   }
   return chartData;
 };
@@ -90,12 +90,22 @@ function LineGraph({ casesType='cases', duration='120', className, country='worl
             setData(chartData);
           });
       };
+
       casesType === 'recovered'
-      ? setX("rgba(0, 200, 0, 0.5)")
-      : setX("rgba(204, 16, 52, 0.5)");
+      ? setX("rgba(0,200,0,0.5)")
+      : casesType === 'deaths'
+      ? setX("rgba(128,128,128,0.5)")
+      : casesType === 'cases'
+      ? setX("rgba(204,16,52,0.5)")
+      : setX("rgba(0,0,200,0.9)");
+
       casesType === 'recovered'
       ? setY("#00CC00")
-      : setY("#CC1034");
+      : casesType === 'deaths'
+      ? setY("#222222")
+      : casesType === 'cases'
+      ? setY("#CC1034")
+      : setY("#3434bb");
   
       fetchData();
     }, [casesType, duration, country]);
