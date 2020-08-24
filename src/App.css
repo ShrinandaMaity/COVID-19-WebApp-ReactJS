@@ -102,49 +102,12 @@ body {
     color: yellow !important;
 }
 
-.tableHead_buttons {
-    display: flex;
-    justify-content: space-between;
-}
-
-.table_sortBy {
-    display: flex !important;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-}
 .table_title {
     font-size: 25px;
     font-family: "Lucida Console", Courier, monospace;
-    margin-top: 15px;
-}
-
-.sortby {
-    width: 70px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    flex-grow: 1;
-}
-
-.sortButton {
-    margin-bottom: 0 !important;
-}
-
-.sortBy_cases {
-    background: rgba(255,0,0,0.2) !important;
-}
-
-.sortBy_deaths {
-    background: rgba(128,128,128,0.2) !important;
-}
-
-.sortBy_recovered {
-    background: rgba(173,255,47,0.2) !important;
-}
-
-.sort_tag {
-    color: white !important;
-    font-size: 10px !important;
-    margin-top: 0 !important;
+    margin-top: 5px;
+    margin-bottom: 2px;
+    text-align: left;
 }
 
 @media (max-width: 600px) {

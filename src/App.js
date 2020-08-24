@@ -3,8 +3,8 @@ import { FormControl, Select, MenuItem, Card, CardContent, Button } from '@mater
 import './App.css';
 import InfoBox from "./InfoBox";
 import Map from "./Map";
-import TablE from "./TablE";
-import LineGraph from './LineGraph'
+import LineGraph from './LineGraph';
+import './TablE.css';
 import { sortData, prettyPrintStat } from './util';
 import "leaflet/dist/leaflet.css";
 import SwapVertSharpIcon from '@material-ui/icons/SwapVertSharp';
@@ -142,48 +142,59 @@ function App() {
 
       <Card className="app_right">
         <CardContent>
-          <div className="tableHead_buttons">
-            <h3 className="table_title">{sortBy=='cases'?'Cases':sortBy=='deaths'?'Deaths':'Recoveries'} by country</h3>
-            <div className="table_sortBy">
-              <Button 
-                className={`sortby ${sortBy=='cases'?'sortBy_cases':''}`} 
-                onClick={(e) => {setSortBy('cases')}}>
-                <div>
+          <h3 className="table_title">Cases by country</h3>
+          <div className="table_head">
+              <tr>
+                <td className="table_country">
+                  Country
+                  {
+                    sortBy=='country'
+                    ? <SortIcon className="sortButton" onClick={(e) => {setSortBy('country')}} style={{ color: "rgb(255,255,0)" }} />
+                    : <SwapVertSharpIcon className="sortButton" onClick={(e) => {setSortBy('country')}} color="disabled"/>
+                  }
+                </td>
+                <td className="table_cases">
+                  Confirmed
                   {
                     sortBy=='cases'
-                    ? <SortIcon className="sortButton" color="secondary" />
-                    : <SwapVertSharpIcon className="sortButton" color="secondary"/>
+                    ? <SortIcon className="sortButton" onClick={(e) => {setSortBy('cases')}} color="secondary" />
+                    : <SwapVertSharpIcon className="sortButton" onClick={(e) => {setSortBy('cases')}} color="disabled"/>
                   }
-                  <div className="sort_tag">cases</div>
-                </div>
-              </Button>
-              <Button 
-                className={`sortby ${sortBy=='recovered'?'sortBy_recovered':''}`}
-                onClick={(e) => {setSortBy('recovered')}}>
-                <div>
+                </td>
+                <td className="table_recovered">
+                  Recovered
                   {
                     sortBy=='recovered'
-                    ? <SortIcon className="sortButton" style={{ color: "rgb(173,255,47)" }}/>
-                    : <SwapVertSharpIcon className="sortButton" style={{ color: "rgb(173,255,47)" }}/>
+                    ? <SortIcon className="sortButton" onClick={(e) => {setSortBy('recovered')}} style={{ color: "rgb(173,255,47)" }}/>
+                    : <SwapVertSharpIcon className="sortButton" onClick={(e) => {setSortBy('recovered')}} color="disabled"/>
                   }
-                  <div className="sort_tag">recovered</div>
-                </div>
-              </Button>
-              <Button 
-                className={`sortby ${sortBy=='deaths'?'sortBy_deaths':''}`}
-                onClick={(e) => {setSortBy('deaths')}}>
-                <div>
+                </td>
+                <td className="table_deaths">
+                  Deaths
                   {
                     sortBy=='deaths'
-                    ? <SortIcon className="sortButton" style={{ color: "rgb(128,128,128)" }}/>
-                    : <SwapVertSharpIcon className="sortButton" style={{ color: "rgb(128,128,128)" }}/>
+                    ? <SortIcon className="sortButton" onClick={(e) => {setSortBy('deaths')}} style={{ color: "rgb(10,10,10)" }}/>
+                    : <SwapVertSharpIcon className="sortButton" onClick={(e) => {setSortBy('deaths')}} color="disabled"/>
                   }
-                  <div className="sort_tag">deaths</div>
-                </div>
-              </Button>
+                </td>
+              </tr>
             </div>
+          <div className="table_body">
+            {tableData.map((country) => (
+                <tr>
+                    <td className="table_country">{country.country}</td>
+                    <td className="table_cases">
+                        <strong>{prettyPrintStat(country.cases)}</strong>
+                    </td>
+                    <td className="table_recovered">
+                        <strong>{prettyPrintStat(country.recovered)}</strong>
+                    </td>
+                    <td className="table_deaths">
+                        <strong>{prettyPrintStat(country.deaths)}</strong>
+                    </td>
+                </tr>
+            ))}
           </div>
-          <TablE countries={tableData} sortBy={sortBy} />
           <div className="app_graphSettings">
                 <h3 className="app_graphTitle" >{casesType} ({country})</h3>
             <div className="duration_toggle">
