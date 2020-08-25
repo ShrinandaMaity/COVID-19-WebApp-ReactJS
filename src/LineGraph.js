@@ -52,26 +52,37 @@ const options = {
     },
   };
 
-const buildChartData = (data, casesType, country) => {
+const buildChartData = (data, casesType, country, lineType) => {
   let chartData = [];
   let lastDataPoint;
   if(country!='worldwide') {
     data=data.timeline;
   }
-  for (let date in data.cases) {
-    if (lastDataPoint) {
+  if(lineType==='daily') {
+    for (let date in data.cases) {
+      if (lastDataPoint) {
+        let newDataPoint = {
+            x: date,
+            y: casesType=='active'?(data['cases'][date]-data['recovered'][date]-data['deaths'][date]) - lastDataPoint:data[casesType][date] - lastDataPoint,
+        };
+        chartData.push(newDataPoint);
+      }
+      lastDataPoint = casesType=='active'?(data['cases'][date]-data['recovered'][date]-data['deaths'][date]):data[casesType][date];
+    }
+  }
+  else {
+    for(let date in data.cases) {
       let newDataPoint = {
-          x: date,
-          y: casesType=='active'?(data['cases'][date]-data['recovered'][date]-data['deaths'][date]) - lastDataPoint:data[casesType][date] - lastDataPoint,
-      };
+        x: date,
+        y: casesType=='active'?(data['cases'][date]-data['recovered'][date]-data['deaths'][date]):data[casesType][date],
+      }
       chartData.push(newDataPoint);
     }
-    lastDataPoint = casesType=='active'?(data['cases'][date]-data['recovered'][date]-data['deaths'][date]):data[casesType][date];
   }
   return chartData;
 };
 
-function LineGraph({ casesType='cases', duration='120', className, country='worldwide' }) {
+function LineGraph({ casesType='cases', duration='120', className, country='worldwide', lineType='daily' }) {
     const [data, setData] = useState({});
     const [x, setX] = useState("rgba(204, 16, 52, 0.5)");
     const [y, setY] = useState("#CC1034");
@@ -86,7 +97,7 @@ function LineGraph({ casesType='cases', duration='120', className, country='worl
             return response.json();
           })
           .then((data) => {
-            let chartData = buildChartData(data, casesType, country);
+            let chartData = buildChartData(data, casesType, country, lineType);
             setData(chartData);
           });
       };
@@ -108,7 +119,7 @@ function LineGraph({ casesType='cases', duration='120', className, country='worl
       : setY("rgba(0,0,200,0.9)");
   
       fetchData();
-    }, [casesType, duration, country]);
+    }, [casesType, duration, country, lineType]);
   
     return (
       <div className={className}>

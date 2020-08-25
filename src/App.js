@@ -5,6 +5,7 @@ import InfoBox from "./InfoBox";
 import Map from "./Map";
 import LineGraph from './LineGraph';
 import './TablE.css';
+import './ToggleSwitch.css'
 import { sortData, prettyPrintStat } from './util';
 import "leaflet/dist/leaflet.css";
 import SwapVertSharpIcon from '@material-ui/icons/SwapVertSharp';
@@ -21,7 +22,8 @@ function App() {
   const [casesType, setCasesType] = useState("cases");
   const [duration, setDuration] = useState('120');
   const [sortBy, setSortBy] = useState('cases');
-  const [date, seDate] = useState(0);
+  const [date, setDate] = useState(0);
+  const [lineType, setLineType] = useState('daily');
 
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
@@ -223,7 +225,16 @@ function App() {
               </Button>
             </div>
           </div>
-          <LineGraph className="app_graph" duration={duration} casesType={casesType} country={country}/>
+          <div className="app_graph">
+            <LineGraph duration={duration} casesType={casesType} country={country} lineType={lineType}/>
+          </div>
+          <div class="switch switch-blue">
+            <input type="radio" class="switch-input" onChange={(e) => {setLineType(e.target.value)}} name="lineType" value="daily" id="daily"/>
+            <label for="daily" class="switch-label switch-label-off">Daily</label>
+            <input type="radio" class="switch-input" onChange={(e) => {setLineType(e.target.value)}} name="lineType" value="cumulative" id="cumulative"/>
+            <label for="cumulative" class="switch-label switch-label-on">Cumulative</label>
+            <span class="switch-selection"></span>
+          </div>
         </CardContent>
       </Card>
       
