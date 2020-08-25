@@ -19,7 +19,7 @@ const options = {
       intersect: false,
       callbacks: {
         label: function (tooltipItem, data) {
-          return numeral(tooltipItem.value).format("0,0");
+          return tooltipItem.value>=0?numeral(tooltipItem.value).format("+0,0"):numeral(tooltipItem.value).format("0,0");
         },
       },
     },
@@ -62,11 +62,11 @@ const buildChartData = (data, casesType, country) => {
     if (lastDataPoint) {
       let newDataPoint = {
           x: date,
-          y: casesType=='active'?data['cases'][date]-data['recovered'][date]-data['deaths'][date]:data[casesType][date] - lastDataPoint,
+          y: casesType=='active'?(data['cases'][date]-data['recovered'][date]-data['deaths'][date]) - lastDataPoint:data[casesType][date] - lastDataPoint,
       };
       chartData.push(newDataPoint);
     }
-    lastDataPoint = casesType=='active'?data['cases'][date]-data['recovered'][date]-data['deaths'][date]:data[casesType][date];
+    lastDataPoint = casesType=='active'?(data['cases'][date]-data['recovered'][date]-data['deaths'][date]):data[casesType][date];
   }
   return chartData;
 };

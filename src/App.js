@@ -21,6 +21,7 @@ function App() {
   const [casesType, setCasesType] = useState("cases");
   const [duration, setDuration] = useState('120');
   const [sortBy, setSortBy] = useState('cases');
+  const [date, seDate] = useState(0);
 
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
