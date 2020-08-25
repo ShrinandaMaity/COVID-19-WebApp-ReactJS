@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { Line } from "react-chartjs-2";
 import numeral from "numeral";
 
-const options = {
+const options1 = {
     legend: {
       display: false,
     },
@@ -20,6 +20,56 @@ const options = {
       callbacks: {
         label: function (tooltipItem, data) {
           return tooltipItem.value>=0?numeral(tooltipItem.value).format("+0,0"):numeral(tooltipItem.value).format("0,0");
+        },
+      },
+    },
+    scales: {
+      xAxes: [
+        {
+          type: "time",
+          time: {
+            format: "MM/DD/YY",
+            tooltipFormat: "ll",
+          },
+          ticks: {
+            fontColor: 'white',
+          },
+        },
+      ],
+      yAxes: [
+        {
+          gridLines: {
+            display: false,
+          },
+          ticks: {
+            callback: function (value, index, values) {
+              return numeral(value).format("0a");  
+            },
+            fontColor: 'white',
+          },
+        },
+      ],
+    },
+  };
+
+const options2 = {
+    legend: {
+      display: false,
+    },
+    elements: {
+      point: {
+        radius: 0,
+      },
+    },
+    maintainAspectRatio: false,
+    tooltips: {
+      backgroundColor: "rgba(0,0,0,1)",
+      borderColor: "rgba(255,255,255,1)",
+      mode: "index",
+      intersect: false,
+      callbacks: {
+        label: function (tooltipItem, data) {
+          return numeral(tooltipItem.value).format("0,0");
         },
       },
     },
@@ -134,7 +184,7 @@ function LineGraph({ casesType='cases', duration='120', className, country='worl
                 },
               ],
             }}
-            options={options}
+            options={lineType==='daily'?options1:options2}
           />
         )}
       </div>
