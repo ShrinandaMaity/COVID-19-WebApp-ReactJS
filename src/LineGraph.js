@@ -97,7 +97,7 @@ function LineGraph({ casesType='cases', duration='120', className, country='worl
       ? setX("rgba(128,128,128,0.5)")
       : casesType === 'cases'
       ? setX("rgba(204,16,52,0.5)")
-      : setX("rgba(0,0,200,0.9)");
+      : setX("#3434bb");
 
       casesType === 'recovered'
       ? setY("#00CC00")
@@ -105,7 +105,7 @@ function LineGraph({ casesType='cases', duration='120', className, country='worl
       ? setY("#222222")
       : casesType === 'cases'
       ? setY("#CC1034")
-      : setY("#3434bb");
+      : setY("rgba(0,0,200,0.9)");
   
       fetchData();
     }, [casesType, duration, country]);
