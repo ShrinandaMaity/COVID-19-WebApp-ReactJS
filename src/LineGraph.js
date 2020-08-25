@@ -105,7 +105,7 @@ const options2 = {
 const buildChartData = (data, casesType, country, lineType) => {
   let chartData = [];
   let lastDataPoint;
-  if(country!='worldwide') {
+  if(country!=='worldwide') {
     data=data.timeline;
   }
   if(lineType==='daily') {
@@ -113,18 +113,18 @@ const buildChartData = (data, casesType, country, lineType) => {
       if (lastDataPoint) {
         let newDataPoint = {
             x: date,
-            y: casesType=='active'?(data['cases'][date]-data['recovered'][date]-data['deaths'][date]) - lastDataPoint:data[casesType][date] - lastDataPoint,
+            y: casesType==='active'?(data['cases'][date]-data['recovered'][date]-data['deaths'][date]) - lastDataPoint:data[casesType][date] - lastDataPoint,
         };
         chartData.push(newDataPoint);
       }
-      lastDataPoint = casesType=='active'?(data['cases'][date]-data['recovered'][date]-data['deaths'][date]):data[casesType][date];
+      lastDataPoint = casesType==='active'?(data['cases'][date]-data['recovered'][date]-data['deaths'][date]):data[casesType][date];
     }
   }
   else {
     for(let date in data.cases) {
       let newDataPoint = {
         x: date,
-        y: casesType=='active'?(data['cases'][date]-data['recovered'][date]-data['deaths'][date]):data[casesType][date],
+        y: casesType==='active'?(data['cases'][date]-data['recovered'][date]-data['deaths'][date]):data[casesType][date],
       }
       chartData.push(newDataPoint);
     }
@@ -139,7 +139,7 @@ function LineGraph({ casesType='cases', duration='120', className, country='worl
 
     useEffect(() => {
       let URL=`https://disease.sh/v3/covid-19/historical/all?lastdays=${duration}`;
-      if(country!='worldwide')
+      if(country!=='worldwide')
         URL=`https://disease.sh/v3/covid-19/historical/${country}?lastdays=${duration}`;
       const fetchData = async () => {
         await fetch(URL)

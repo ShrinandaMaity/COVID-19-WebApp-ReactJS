@@ -151,7 +151,7 @@ function App() {
                 <td className="table_country">
                   Country
                   {
-                    sortBy=='country'
+                    sortBy==='country'
                     ? <SortIcon className="sortButton" onClick={(e) => {setSortBy('country')}} style={{ color: "rgb(255,255,0)" }} />
                     : <SwapVertSharpIcon className="sortButton" onClick={(e) => {setSortBy('country')}} color="disabled"/>
                   }
@@ -159,7 +159,7 @@ function App() {
                 <td className="table_cases">
                   Confirmed
                   {
-                    sortBy=='cases'
+                    sortBy==='cases'
                     ? <SortIcon className="sortButton" onClick={(e) => {setSortBy('cases')}} color="secondary" />
                     : <SwapVertSharpIcon className="sortButton" onClick={(e) => {setSortBy('cases')}} color="disabled"/>
                   }
@@ -167,7 +167,7 @@ function App() {
                 <td className="table_recovered">
                   Recovered
                   {
-                    sortBy=='recovered'
+                    sortBy==='recovered'
                     ? <SortIcon className="sortButton" onClick={(e) => {setSortBy('recovered')}} style={{ color: "rgb(173,255,47)" }}/>
                     : <SwapVertSharpIcon className="sortButton" onClick={(e) => {setSortBy('recovered')}} color="disabled"/>
                   }
@@ -175,7 +175,7 @@ function App() {
                 <td className="table_deaths">
                   Deaths
                   {
-                    sortBy=='deaths'
+                    sortBy==='deaths'
                     ? <SortIcon className="sortButton" onClick={(e) => {setSortBy('deaths')}} style={{ color: "rgb(10,10,10)" }}/>
                     : <SwapVertSharpIcon className="sortButton" onClick={(e) => {setSortBy('deaths')}} color="disabled"/>
                   }
