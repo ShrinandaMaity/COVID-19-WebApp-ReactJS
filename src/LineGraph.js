@@ -41,6 +41,7 @@ const options1 = {
           gridLines: {
             display: false,
           },
+          type: 'linear',
           ticks: {
             callback: function (value, index, values) {
               return numeral(value).format("0a");  
@@ -91,6 +92,7 @@ const options2 = {
           gridLines: {
             display: false,
           },
+          type: 'linear',
           ticks: {
             callback: function (value, index, values) {
               return numeral(value).format("0a");  
@@ -102,12 +104,63 @@ const options2 = {
     },
   };
 
+const options3 = {
+  legend: {
+    display: false,
+  },
+  elements: {
+    point: {
+      radius: 0,
+    },
+  },
+  maintainAspectRatio: false,
+  tooltips: {
+    backgroundColor: "rgba(0,0,0,1)",
+    borderColor: "rgba(255,255,255,1)",
+    mode: "index",
+    intersect: false,
+    callbacks: {
+      label: function (tooltipItem, data) {
+        return numeral(tooltipItem.value).format("0,0");
+      },
+    },
+  },
+  scales: {
+    xAxes: [
+      {
+        type: "time",
+        time: {
+          format: "MM/DD/YY",
+          tooltipFormat: "ll",
+        },
+        ticks: {
+          fontColor: 'white',
+        },
+      },
+    ],
+    yAxes: [
+      {
+        gridLines: {
+          display: false,
+        },
+        type: 'logarithmic',
+        ticks: {
+          callback: function (value, index, values) {
+            return numeral(value).format("0a");  
+          },
+          fontColor: 'white',
+        },
+      },
+    ],
+  },
+};
+
 const buildChartData = (data, casesType, lineType, duration) => {
   let chartData = [];
   let lastDataPoint;
   let i = 0;
   let mark;
-  duration==='120'?mark=0:duration==='60'?mark=60:mark=30;
+  duration==='120'?mark=0:duration==='60'?mark=60:mark=90;
   if(lineType==='daily') {
     for (let date in data['cases']) {
       if(i>=mark) {
@@ -138,7 +191,7 @@ const buildChartData = (data, casesType, lineType, duration) => {
   return chartData;
 };
 
-function LineGraph({ casesType='cases', duration='120', className, country='worldwide', lineType='daily' }) {
+function LineGraph({ casesType='cases', duration='120', className, country='worldwide', lineType='daily', scale='linear' }) {
     const [data, setData] = useState({});
     const [dataset, setDataset] = useState({});
     const [x, setX] = useState("rgba(204, 16, 52, 0.5)");
@@ -183,7 +236,7 @@ function LineGraph({ casesType='cases', duration='120', className, country='worl
       ? setY("#CC1034")
       : setY("rgba(0,0,200,0.9)");
 
-    }, [casesType, duration, dataset, lineType]);
+    }, [casesType, duration, dataset, lineType, scale]);
   
     return (
       <div className={className}>
@@ -198,7 +251,7 @@ function LineGraph({ casesType='cases', duration='120', className, country='worl
                 },
               ],
             }}
-            options={lineType==='daily'?options1:options2}
+            options={lineType==='daily'?options1:scale==='linear'?options2:options3}
           />
         )}
       </div>

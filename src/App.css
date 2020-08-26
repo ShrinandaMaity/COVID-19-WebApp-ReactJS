@@ -145,7 +145,7 @@ body {
     margin-right: 10px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1295px) {
     .app_left_right {
         flex-direction: column;
     }

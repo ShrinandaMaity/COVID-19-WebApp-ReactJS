@@ -26,8 +26,9 @@ function App() {
   const [casesType, setCasesType] = useState("cases");
   const [duration, setDuration] = useState('120');
   const [sortBy, setSortBy] = useState('cases');
-  const [date, setDate] = useState(0);
+  // const [date, setDate] = useState(0);
   const [lineType, setLineType] = useState('daily');
+  const [scale, setScale] = useState('linear');
 
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
@@ -36,6 +37,12 @@ function App() {
       setCountryInfo(data);
     });
   }, []);
+
+  useEffect(() => {
+    if(lineType=='daily') {
+      setScale('linear');
+    }
+  }, [lineType]);
 
   useEffect(() => {
   
@@ -232,14 +239,33 @@ function App() {
               </div>
             </div>
             <div className="app_graph">
-              <LineGraph duration={duration} casesType={casesType} country={country} lineType={lineType}/>
+              <LineGraph duration={duration} casesType={casesType} country={country} lineType={lineType} scale={scale}/>
             </div>
-            <div class="switch switch-blue">
-              <input type="radio" class="switch-input" onChange={(e) => {setLineType(e.target.value)}} name="lineType" value="daily" id="daily"/>
-              <label for="daily" class="switch-label switch-label-off">Daily</label>
-              <input type="radio" class="switch-input" onChange={(e) => {setLineType(e.target.value)}} name="lineType" value="cumulative" id="cumulative"/>
-              <label for="cumulative" class="switch-label switch-label-on">Cumulative</label>
-              <span class="switch-selection"></span>
+            <div>
+              <div class="switch switch-blue">
+                <input type="radio" class="switch-input" onChange={(e) => {setLineType(e.target.value)}} name="lineType" value="daily" id="daily"/>
+                <label for="daily" class="switch-label switch-label-off">Daily</label>
+                <input type="radio" class="switch-input" onChange={(e) => {setLineType(e.target.value)}} name="lineType" value="cumulative" id="cumulative"/>
+                <label for="cumulative" class="switch-label switch-label-on">Cumulative</label>
+                <span class="switch-selection"></span>
+              </div>
+              <div className="toggle_scale">
+                <Button 
+                  variant='contained'
+                  className={`scale_button ${scale==='linear'?'active_button':'inactive_button'}`}
+                  color={`${scale==='linear'?'primary':'secondary'}`}
+                  onClick={(e) => setScale('linear')}>
+                    Linear
+                </Button>
+                <Button 
+                  variant='contained'
+                  className={`scale_button ${lineType==='daily'?'hide_button':scale==='linear'?'inactive_button':'active_button'}`}
+                  color={`${lineType==='daily'?'disabled':scale==='linear'?'secondary':'primary'}`}
+                  onClick={(e) => setScale('logarithmic')}>
+                    Logarithmic
+                </Button>
+                <span class="switch-selection"></span>
+              </div>
             </div>
           </CardContent>
         </Card>
