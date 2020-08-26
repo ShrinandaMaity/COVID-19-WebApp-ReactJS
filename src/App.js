@@ -264,7 +264,6 @@ function App() {
                   onClick={(e) => setScale('logarithmic')}>
                     Logarithmic
                 </Button>
-                <span class="switch-selection"></span>
               </div>
             </div>
           </CardContent>

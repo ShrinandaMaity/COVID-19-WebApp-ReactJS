@@ -61,8 +61,7 @@
     transition: left 0.15s ease-out;
 }
 
-.switch-blue .switch-selection,
-.toggle_scale .switch-selection {
+.switch-blue .switch-selection {
     background-color: #3aa2d0;
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4fc9ee), color-stop(100%, #3aa2d0));
     background-image: -webkit-linear-gradient(top, #4fc9ee, #3aa2d0);
