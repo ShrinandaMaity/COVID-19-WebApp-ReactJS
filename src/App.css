@@ -1,4 +1,4 @@
-* {
+*:not(.app_links) {
     margin: 0;
 }
 
@@ -7,10 +7,13 @@ body {
     background-color: #330867;
 }
 
-.app {
+.app_left_right {
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .app_dropdown {
@@ -111,8 +114,39 @@ body {
     text-align: left;
 }
 
+.app_links {
+    width: max-content;
+    display: flex;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-bottom: 5px;
+}
+
+.link_github {
+    vertical-align: middle;
+    cursor: pointer;
+    margin-top: 3px;
+    margin-bottom: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.link_mail {
+    cursor: pointer;
+    margin-top: auto;
+    margin-bottom: auto !important;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.link_api, .link_li {
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 @media (max-width: 600px) {
-    .app {
+    .app_left_right {
         flex-direction: column;
     }
     .app_right {

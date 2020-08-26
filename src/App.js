@@ -10,6 +10,10 @@ import { sortData, prettyPrintStat } from './util';
 import "leaflet/dist/leaflet.css";
 import SwapVertSharpIcon from '@material-ui/icons/SwapVertSharp';
 import SortIcon from '@material-ui/icons/Sort';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import StorageIcon from '@material-ui/icons/Storage';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -79,74 +83,74 @@ function App() {
 
   return (
     <div className="app">
+      <div className="app_left_right">
+        <div className="app_left">
 
-      <div className="app_left">
+          <div className="app_header">
 
-        <div className="app_header">
+            <h1>
+              COVID-19 Info
+            </h1>
 
-          <h1>
-            COVID-19 Tracker
-          </h1>
+            <FormControl variant="filled" className="app_dropdown">
+              <Select className="select_dropdown" variant="outlined" onChange={onCountryChange} value={country}>
+                <MenuItem className="dropdown_item" value="worldwide">Worldwide</MenuItem>
+                {
+                  countries.map((country) => (
+                  <MenuItem className="dropdown_item" value={country.name}>{country.name}</MenuItem>
+                  ))
+                }
+              </Select>
+            </FormControl>
 
-          <FormControl variant="filled" className="app_dropdown">
-            <Select className="select_dropdown" variant="outlined" onChange={onCountryChange} value={country}>
-              <MenuItem className="dropdown_item" value="worldwide">Worldwide</MenuItem>
-              {
-                countries.map((country) => (
-                <MenuItem className="dropdown_item" value={country.name}>{country.name}</MenuItem>
-                ))
-              }
-            </Select>
-          </FormControl>
+          </div>
+
+          <div className="app_stats">
+                <InfoBox
+                  active={casesType === "cases"}
+                  onClick={(e) => setCasesType('cases')}
+                  title="Coronavirus Cases" 
+                  cases={countryInfo.todayCases} 
+                  total={countryInfo.cases}
+                  casesType="cases"
+                />
+                <InfoBox
+                  active={casesType === "recovered"}
+                  onClick={(e) => setCasesType('recovered')}
+                  title="Recovered" 
+                  cases={countryInfo.todayRecovered} 
+                  total={countryInfo.recovered}
+                  casesType="recovered"
+                  Totalcases={countryInfo.cases}
+                />
+                <InfoBox
+                  active={casesType === "active"}
+                  onClick={(e) => setCasesType('active')}
+                  title="Active Cases"
+                  cases={countryInfo.todayCases-countryInfo.todayDeaths-countryInfo.todayRecovered}
+                  total={countryInfo.active}
+                  casesType="active"
+                  Totalcases={countryInfo.cases}
+                />
+                <InfoBox
+                  active={casesType === "deaths"}
+                  onClick={(e) => setCasesType('deaths')}
+                  title="Deaths" 
+                  cases={countryInfo.todayDeaths} 
+                  total={countryInfo.deaths}
+                  casesType="deaths"
+                  Totalcases={countryInfo.cases}
+                />
+          </div>
+
+          <Map casesType={casesType} countries={mapCountries} center={mapCenter} zoom={mapZoom} />
 
         </div>
 
-        <div className="app_stats">
-              <InfoBox
-                active={casesType === "cases"}
-                onClick={(e) => setCasesType('cases')}
-                title="Coronavirus Cases" 
-                cases={countryInfo.todayCases} 
-                total={countryInfo.cases}
-                casesType="cases"
-              />
-              <InfoBox
-                active={casesType === "recovered"}
-                onClick={(e) => setCasesType('recovered')}
-                title="Recovered" 
-                cases={countryInfo.todayRecovered} 
-                total={countryInfo.recovered}
-                casesType="recovered"
-                Totalcases={countryInfo.cases}
-              />
-              <InfoBox
-                active={casesType === "active"}
-                onClick={(e) => setCasesType('active')}
-                title="Active Cases"
-                cases={countryInfo.todayCases-countryInfo.todayDeaths-countryInfo.todayRecovered}
-                total={countryInfo.active}
-                casesType="active"
-                Totalcases={countryInfo.cases}
-              />
-              <InfoBox
-                active={casesType === "deaths"}
-                onClick={(e) => setCasesType('deaths')}
-                title="Deaths" 
-                cases={countryInfo.todayDeaths} 
-                total={countryInfo.deaths}
-                casesType="deaths"
-                Totalcases={countryInfo.cases}
-              />
-        </div>
-
-        <Map casesType={casesType} countries={mapCountries} center={mapCenter} zoom={mapZoom} />
-
-      </div>
-
-      <Card className="app_right">
-        <CardContent>
-          <h3 className="table_title">Cases by country</h3>
-          <div className="table_head">
+        <Card className="app_right">
+          <CardContent>
+            <h3 className="table_title">Cases by country</h3>
+            <div className="table_head">
               <tr>
                 <td className="table_index">#</td>
                 <td className="table_country">
@@ -183,62 +187,70 @@ function App() {
                 </td>
               </tr>
             </div>
-          <div className="table_body">
-            {tableData.map((country, index) => (
-                <tr>
-                    <td className="table_index">{index+1}</td>
-                    <td className="table_country">{country.country}</td>
-                    <td className="table_cases">
-                        <strong>{prettyPrintStat(country.cases)}</strong>
-                    </td>
-                    <td className="table_recovered">
-                        <strong>{prettyPrintStat(country.recovered)}</strong>
-                    </td>
-                    <td className="table_deaths">
-                        <strong>{prettyPrintStat(country.deaths)}</strong>
-                    </td>
-                </tr>
-            ))}
-          </div>
-          <div className="app_graphSettings">
-                <h3 className="app_graphTitle" >{casesType} ({country})</h3>
-            <div className="duration_toggle">
-
-              <Button 
-                variant={`${duration==='120'? 'contained': 'outlined'}`}
-                className={`${duration==='120'? 'active': 'inactive'}`}
-                color="primary" 
-                onClick={(e) => setDuration('120')}>
-                  120 days
-              </Button>
-              <Button 
-                variant={`${duration==='60'? 'contained': 'outlined'}`} 
-                className={`${duration==='60'? 'active': 'inactive'}`} 
-                color="primary" 
-                onClick={(e) => setDuration('60')}>
-                  60 days
-              </Button>
-              <Button 
-                variant={`${duration==='30'? 'contained': 'outlined'}`} 
-                className={`${duration==='30'? 'active': 'inactive'}`} 
-                color="primary" 
-                onClick={(e) => setDuration('30')}>
-                  30 days
-              </Button>
+            <div className="table_body">
+              {tableData.map((country, index) => (
+                  <tr>
+                      <td className="table_index">{index+1}</td>
+                      <td className="table_country">{country.country}</td>
+                      <td className="table_cases">
+                          <strong>{prettyPrintStat(country.cases)}</strong>
+                      </td>
+                      <td className="table_recovered">
+                          <strong>{prettyPrintStat(country.recovered)}</strong>
+                      </td>
+                      <td className="table_deaths">
+                          <strong>{prettyPrintStat(country.deaths)}</strong>
+                      </td>
+                  </tr>
+              ))}
             </div>
-          </div>
-          <div className="app_graph">
-            <LineGraph duration={duration} casesType={casesType} country={country} lineType={lineType}/>
-          </div>
-          <div class="switch switch-blue">
-            <input type="radio" class="switch-input" onChange={(e) => {setLineType(e.target.value)}} name="lineType" value="daily" id="daily"/>
-            <label for="daily" class="switch-label switch-label-off">Daily</label>
-            <input type="radio" class="switch-input" onChange={(e) => {setLineType(e.target.value)}} name="lineType" value="cumulative" id="cumulative"/>
-            <label for="cumulative" class="switch-label switch-label-on">Cumulative</label>
-            <span class="switch-selection"></span>
-          </div>
-        </CardContent>
-      </Card>
+            <div className="app_graphSettings">
+                  <h3 className="app_graphTitle" >{casesType} ({country})</h3>
+              <div className="duration_toggle">
+
+                <Button 
+                  variant={`${duration==='120'? 'contained': 'outlined'}`}
+                  className={`${duration==='120'? 'active': 'inactive'}`}
+                  color="primary" 
+                  onClick={(e) => setDuration('120')}>
+                    120 days
+                </Button>
+                <Button 
+                  variant={`${duration==='60'? 'contained': 'outlined'}`} 
+                  className={`${duration==='60'? 'active': 'inactive'}`} 
+                  color="primary" 
+                  onClick={(e) => setDuration('60')}>
+                    60 days
+                </Button>
+                <Button 
+                  variant={`${duration==='30'? 'contained': 'outlined'}`} 
+                  className={`${duration==='30'? 'active': 'inactive'}`} 
+                  color="primary" 
+                  onClick={(e) => setDuration('30')}>
+                    30 days
+                </Button>
+              </div>
+            </div>
+            <div className="app_graph">
+              <LineGraph duration={duration} casesType={casesType} country={country} lineType={lineType}/>
+            </div>
+            <div class="switch switch-blue">
+              <input type="radio" class="switch-input" onChange={(e) => {setLineType(e.target.value)}} name="lineType" value="daily" id="daily"/>
+              <label for="daily" class="switch-label switch-label-off">Daily</label>
+              <input type="radio" class="switch-input" onChange={(e) => {setLineType(e.target.value)}} name="lineType" value="cumulative" id="cumulative"/>
+              <label for="cumulative" class="switch-label switch-label-on">Cumulative</label>
+              <span class="switch-selection"></span>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="app_links">
+        <a href="https://github.com/kaustaav/COVID-19-WebApp-ReactJS"><GitHubIcon className="link_github" color="primary" fontSize="large" /></a>
+        <a href="https://disease.sh/docs/#/"><StorageIcon color="primary" style={{ fontSize: 45 }} className="link_api" /></a>
+        <a href="mailto:kaustavbhattacharya@gmail.com"><MailOutlineIcon color="primary" style={{ fontSize: 45 }} className="link_mail"/></a>
+        <a href="https://www.linkedin.com/in/kaustav-bhattacherjee-795a2114a/"><LinkedInIcon color="primary" style={{ fontSize: 45 }} className="link_li" /></a>
+      </div>
       
     </div>
   );
