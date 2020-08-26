@@ -148,6 +148,7 @@ function App() {
           <h3 className="table_title">Cases by country</h3>
           <div className="table_head">
               <tr>
+                <td className="table_index">#</td>
                 <td className="table_country">
                   Country
                   {
@@ -183,8 +184,9 @@ function App() {
               </tr>
             </div>
           <div className="table_body">
-            {tableData.map((country) => (
+            {tableData.map((country, index) => (
                 <tr>
+                    <td className="table_index">{index+1}</td>
                     <td className="table_country">{country.country}</td>
                     <td className="table_cases">
                         <strong>{prettyPrintStat(country.cases)}</strong>
