@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { FormControl, Select, MenuItem, Card, CardContent, Button } from '@material-ui/core';
+import { FormControl, Select, MenuItem, Card, CardContent, Button, IconButton, Collapse } from '@material-ui/core';
 import './App.css';
 import InfoBox from "./InfoBox";
 import Map from "./Map";
 import LineGraph from './LineGraph';
+import TablE from './TablE';
 import './TablE.css';
 import './ToggleSwitch.css'
 import { sortData, prettyPrintStat } from './util';
 import "leaflet/dist/leaflet.css";
-import { IconButton } from '@material-ui/core';
 import SwapVertSharpIcon from '@material-ui/icons/SwapVertSharp';
 import SortIcon from '@material-ui/icons/Sort';
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -230,20 +230,9 @@ function App() {
             </div>
             <div className="table_body">
               {tableData.map((country, index) => (
-                  <tr>
-                      <td className="table_index">{index+1}</td>
-                      <td className="table_country">{country.country}</td>
-                      <td className="table_cases">
-                          <strong>{prettyPrintStat(country.cases)}</strong>
-                      </td>
-                      <td className="table_recovered">
-                          <strong>{prettyPrintStat(country.recovered)}</strong>
-                      </td>
-                      <td className="table_deaths">
-                          <strong>{prettyPrintStat(country.deaths)}</strong>
-                      </td>
-                  </tr>
-              ))}
+                  <TablE country={country} index={index}/>
+                ))
+              }
             </div>
             <div className="app_graphSettings">
                   <h3 className="app_graphTitle" >{casesType} ({country})</h3>

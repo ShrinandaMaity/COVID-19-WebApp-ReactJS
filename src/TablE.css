@@ -10,24 +10,24 @@
     color: white;    
 }
 
-.table_body tr,
+.table_body_row,
 .table_head tr {
     box-shadow: 0 0 1px rgba(252, 196, 196, 0.8) !important;
     display: flex;
     justify-content: space-between;
 }
 
-.table_body td,
+.row_body td,
 .table_head td {
     padding: 10px;
 }
 
-.table_body tr:nth-of-type(odd) {
-    background-color: rgba(255, 255, 255, 0);
+.row_odd {
+    background-color: rgba(255, 255, 255, 0) !important;
 }
 
-.table_body tr:nth-of-type(even) {
-    background-color: rgba(255, 255, 255, 0.1);
+.row_even {
+    background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 .table_index {
@@ -40,6 +40,11 @@
     width: 120px;
     text-align: left;
     display: flex;
+    justify-content: space-between;
+}
+
+.table_arrow {
+    padding: 1px !important;
 }
 
 .table_cases, 
@@ -55,7 +60,7 @@
     display: flex;
 }
 
-.table_body td:not(:last-child) {
+.table_body_row td:not(:last-child) {
     border-right: 1px solid rgba(255,255,255,0.2);
 }
 
