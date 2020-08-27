@@ -38,16 +38,7 @@ function App() {
     .then((data) => {
       setCountryInfo(data);
     });
-  }, []);
 
-  useEffect(() => {
-    if(lineType==='daily') {
-      setScale('linear');
-    }
-  }, [lineType]);
-
-  useEffect(() => {
-  
     const getCountriesData = async () => 
     {
       await fetch("https://disease.sh/v3/covid-19/countries")
@@ -60,13 +51,23 @@ function App() {
             value: country.countryInfo.iso3,
           }
         ));
-        const sortedData = sortData(data,sortBy,sortOrder);
-        setTableData(sortedData);
+        setTableData(sortData(data));
         setMapCountries(data);
         setCountries(countries);
       });
     };
     getCountriesData();
+  }, []);
+
+  useEffect(() => {
+    if(lineType==='daily') {
+      setScale('linear');
+    }
+  }, [lineType]);
+
+  useEffect(() => {
+    let x=sortData(mapCountries,sortBy,sortOrder);
+    setTableData(x);
   }, [sortBy, sortOrder]);
 
   const onCountryChange = async (event) => {
