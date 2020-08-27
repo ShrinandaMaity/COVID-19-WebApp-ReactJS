@@ -27,6 +27,7 @@ function App() {
   const [casesType, setCasesType] = useState("cases");
   const [duration, setDuration] = useState('120');
   const [sortBy, setSortBy] = useState('cases');
+  const [sortOrder, setSortOrder] = useState(1);
   // const [date, setDate] = useState(0);
   const [lineType, setLineType] = useState('daily');
   const [scale, setScale] = useState('linear');
@@ -59,14 +60,14 @@ function App() {
             value: country.countryInfo.iso3,
           }
         ));
-        const sortedData = sortData(data,sortBy);
+        const sortedData = sortData(data,sortBy,sortOrder);
         setTableData(sortedData);
         setMapCountries(data);
         setCountries(countries);
       });
     };
     getCountriesData();
-  }, [sortBy]);
+  }, [sortBy, sortOrder]);
 
   const onCountryChange = async (event) => {
     const countryCode = event.target.value;
@@ -87,6 +88,17 @@ function App() {
       ? setMapZoom(3)
       : setMapZoom(4);
     })
+  };
+
+  const onSortChange = async (event) => {
+    if(event.target.value===sortBy) {
+      setSortOrder((-1)*sortOrder);
+    }
+    else {
+      setSortOrder(1);
+      setSortBy(event.target.value);
+    }
+    console.log(setSortBy, setSortOrder);
   };
 
   return (
@@ -163,35 +175,55 @@ function App() {
                 <td className="table_index">#</td>
                 <td className="table_country">
                   Country
+                  <input type="radio" className="switch-input" value="country" onClick={onSortChange} id="country" />
+                  <label for="country">
                   {
-                    sortBy==='country'
-                    ? <SortIcon className="sortButton" onClick={(e) => {setSortBy('country')}} style={{ color: "rgb(255,255,0)" }} />
-                    : <SwapVertSharpIcon className="sortButton" onClick={(e) => {setSortBy('country')}} color="disabled"/>
+                    sortBy!=='country'
+                    ? <SwapVertSharpIcon  className="sortButton" color="disabled"/>
+                    : sortOrder===1
+                    ? <SortIcon className="sortButton" style={{ color: "rgb(255,255,0)" }} />
+                    : <SortIcon className="sortButton_rotate" style={{ color: "rgb(255,255,0)" }} />
                   }
+                  </label>
                 </td>
                 <td className="table_cases">
                   Confirmed
-                  {
-                    sortBy==='cases'
-                    ? <SortIcon className="sortButton" onClick={(e) => {setSortBy('cases')}} color="secondary" />
-                    : <SwapVertSharpIcon className="sortButton" onClick={(e) => {setSortBy('cases')}} color="disabled"/>
-                  }
+                  <input type="radio" className="switch-input" value="cases" onClick={onSortChange} id="cases" />
+                  <label for="cases">
+                    {
+                      sortBy!=='cases'
+                      ? <SwapVertSharpIcon className="sortButton" color="disabled"/>
+                      : sortOrder===1
+                      ? <SortIcon className="sortButton" color="secondary" />
+                      : <SortIcon className="sortButton_rotate" color="secondary" />
+                    }
+                  </label>
                 </td>
                 <td className="table_recovered">
                   Recovered
-                  {
-                    sortBy==='recovered'
-                    ? <SortIcon className="sortButton" onClick={(e) => {setSortBy('recovered')}} style={{ color: "rgb(173,255,47)" }}/>
-                    : <SwapVertSharpIcon className="sortButton" onClick={(e) => {setSortBy('recovered')}} color="disabled"/>
-                  }
+                  <input type="radio" className="switch-input" value="recovered" onClick={onSortChange} id="recovered" />
+                  <label for="recovered">
+                    {
+                      sortBy!=='recovered'
+                      ? <SwapVertSharpIcon className="sortButton" color="disabled"/>
+                      : sortOrder===1
+                      ? <SortIcon className="sortButton" style={{ color: "rgb(173,255,47)" }}/>
+                      : <SortIcon className="sortButton_rotate" style={{ color: "rgb(173,255,47)" }}/>
+                    }
+                  </label>
                 </td>
                 <td className="table_deaths">
                   Deaths
-                  {
-                    sortBy==='deaths'
-                    ? <SortIcon className="sortButton" onClick={(e) => {setSortBy('deaths')}} style={{ color: "rgb(10,10,10)" }}/>
-                    : <SwapVertSharpIcon className="sortButton" onClick={(e) => {setSortBy('deaths')}} color="disabled"/>
-                  }
+                  <input type="radio" className="switch-input" value="deaths" onClick={onSortChange} id="deaths" />
+                  <label for="deaths">
+                    {
+                      sortBy!=='deaths'
+                      ? <SwapVertSharpIcon className="sortButton" color="disabled"/>
+                      : sortOrder===1
+                      ? <SortIcon className="sortButton" style={{ color: "rgb(10,10,10)" }}/>
+                      : <SortIcon className="sortButton_rotate" style={{ color: "rgb(10,10,10)" }}/>
+                    }
+                  </label>
                 </td>
               </tr>
             </div>

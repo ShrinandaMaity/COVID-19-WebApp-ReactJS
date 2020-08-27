@@ -151,6 +151,15 @@ body {
     margin-right: 10px;
 }
 
+.sortButton_rotate {
+    transform: rotate(180deg) scaleX(-1);
+    cursor: pointer;
+}
+
+.sortButton {
+    cursor: pointer;
+}
+
 @media (max-width: 1295px) {
     .app_left_right {
         flex-direction: column;

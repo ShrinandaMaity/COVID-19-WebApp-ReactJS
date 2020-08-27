@@ -21,16 +21,16 @@ const casesTypeColors = {
     }
 }
 
-export const sortData = (data, sortBy='cases') => {
+export const sortData = (data, sortBy='cases', sortOrder=1) => {
     const sortedData = [...data];
     sortedData.sort((a, b) => {
         if(a[sortBy] > b[sortBy])
         {
-            return -1;
+            return (-1)*sortOrder;
         }
         else
         {
-            return 1;
+            return sortOrder;
         }
     })
     return sortedData;

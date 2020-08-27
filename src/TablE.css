@@ -62,7 +62,3 @@
 .table_head td:not(:first-of-type) {
     margin-right: 10px;
 }
-
-.sortButton {
-    cursor: pointer;
-}
