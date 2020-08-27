@@ -6,13 +6,14 @@ import { prettyPrintStat } from './util';
 
 function InfoBox({ title, cases, active, casesType, Totalcases, total, ...props }) {
     const todayCases = cases>=0?`+${prettyPrintStat(cases)}`:`-${prettyPrintStat(-cases)}`;
+    const percentage = ((total/Totalcases)*100).toFixed(1);
     return (
         <Card
             onClick={props.onClick} 
             className={`infoBox ${active?`todays--${casesType}`:'infoBox--notSelected'}`}>
             <CardContent className="info_content">
                 <Typography className="infoBox_title" color="textSecondary">
-                    {title} {Totalcases?`(${((total/Totalcases)*100).toFixed(1)}%)`:''}
+                    {title} {Totalcases?`(${percentage}%)`:''}
                 </Typography>
                 <h2 className={`infoBox_${casesType}`}>
                     {todayCases}

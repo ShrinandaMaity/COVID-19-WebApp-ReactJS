@@ -3,6 +3,7 @@ import { Line } from "react-chartjs-2";
 import numeral from "numeral";
 
 const options1 = {
+    width: '50px',
     legend: {
       display: false,
     },

@@ -8,6 +8,7 @@ import './TablE.css';
 import './ToggleSwitch.css'
 import { sortData, prettyPrintStat } from './util';
 import "leaflet/dist/leaflet.css";
+import { IconButton } from '@material-ui/core';
 import SwapVertSharpIcon from '@material-ui/icons/SwapVertSharp';
 import SortIcon from '@material-ui/icons/Sort';
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -39,7 +40,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if(lineType=='daily') {
+    if(lineType==='daily') {
       setScale('linear');
     }
   }, [lineType]);
@@ -238,32 +239,36 @@ function App() {
                 </Button>
               </div>
             </div>
-            <div className="app_graph">
-              <LineGraph duration={duration} casesType={casesType} country={country} lineType={lineType} scale={scale}/>
-            </div>
-            <div>
-              <div class="switch switch-blue">
-                <input type="radio" class="switch-input" onChange={(e) => {setLineType(e.target.value)}} name="lineType" value="daily" id="daily"/>
-                <label for="daily" class="switch-label switch-label-off">Daily</label>
-                <input type="radio" class="switch-input" onChange={(e) => {setLineType(e.target.value)}} name="lineType" value="cumulative" id="cumulative"/>
-                <label for="cumulative" class="switch-label switch-label-on">Cumulative</label>
-                <span class="switch-selection"></span>
-              </div>
-              <div className="toggle_scale">
-                <Button 
-                  variant='contained'
-                  className={`scale_button ${scale==='linear'?'active_button':'inactive_button'}`}
-                  color={`${scale==='linear'?'primary':'secondary'}`}
-                  onClick={(e) => setScale('linear')}>
-                    Linear
-                </Button>
-                <Button 
-                  variant='contained'
-                  className={`scale_button ${lineType==='daily'?'hide_button':scale==='linear'?'inactive_button':'active_button'}`}
-                  color={`${lineType==='daily'?'disabled':scale==='linear'?'secondary':'primary'}`}
-                  onClick={(e) => setScale('logarithmic')}>
-                    Logarithmic
-                </Button>
+            <div className="graph_list">
+              <div className="line_graph">
+                <div className="app_graph">
+                  <LineGraph duration={duration} casesType={casesType} country={country} lineType={lineType} scale={scale}/>
+                </div>
+                <div>
+                  <div class="switch switch-blue">
+                    <input type="radio" class="switch-input" onChange={(e) => {setLineType(e.target.value)}} name="lineType" value="daily" id="daily"/>
+                    <label for="daily" class="switch-label switch-label-off">Daily</label>
+                    <input type="radio" class="switch-input" onChange={(e) => {setLineType(e.target.value)}} name="lineType" value="cumulative" id="cumulative"/>
+                    <label for="cumulative" class="switch-label switch-label-on">Cumulative</label>
+                    <span class="switch-selection"></span>
+                  </div>
+                  <div className="toggle_scale">
+                    <Button 
+                      variant='contained'
+                      className={`scale_button ${scale==='linear'?'active_button':'inactive_button'}`}
+                      color={`${scale==='linear'?'primary':'secondary'}`}
+                      onClick={(e) => setScale('linear')}>
+                        Linear
+                    </Button>
+                    <Button 
+                      variant='contained'
+                      className={`scale_button ${lineType==='daily'?'hide_button':scale==='linear'?'inactive_button':'active_button'}`}
+                      color={`${lineType==='daily'?'disabled':scale==='linear'?'secondary':'primary'}`}
+                      onClick={(e) => setScale('logarithmic')}>
+                        Logarithmic
+                    </Button>
+                  </div>
+                </div>
               </div>
             </div>
           </CardContent>
@@ -271,10 +276,18 @@ function App() {
       </div>
 
       <div className="app_links">
-        <a href="https://github.com/kaustaav/COVID-19-WebApp-ReactJS"><GitHubIcon className="link_github" color="primary" fontSize="large" /></a>
-        <a href="https://disease.sh/docs/#/"><StorageIcon color="primary" style={{ fontSize: 45 }} className="link_api" /></a>
-        <a href="mailto:kaustavbhattacharya@gmail.com"><MailOutlineIcon color="primary" style={{ fontSize: 45 }} className="link_mail"/></a>
-        <a href="https://www.linkedin.com/in/kaustav-bhattacherjee-795a2114a/"><LinkedInIcon color="primary" style={{ fontSize: 45 }} className="link_li" /></a>
+        <IconButton>
+          <a href="https://github.com/kaustaav/COVID-19-WebApp-ReactJS"><GitHubIcon className="link_github" color="primary" fontSize="large" /></a>
+        </IconButton>
+        <IconButton>
+          <a href="https://disease.sh/docs/#/"><StorageIcon color="primary" style={{ fontSize: 45 }} className="link_api" /></a>
+        </IconButton>
+        <IconButton>
+          <a href="mailto:kaustavbhattacharya@gmail.com"><MailOutlineIcon color="primary" style={{ fontSize: 45 }} className="link_mail"/></a>
+        </IconButton>
+        <IconButton>
+          <a href="https://www.linkedin.com/in/kaustav-bhattacherjee-795a2114a/"><LinkedInIcon color="primary" style={{ fontSize: 45 }} className="link_li" /></a>
+        </IconButton>
       </div>
       
     </div>
