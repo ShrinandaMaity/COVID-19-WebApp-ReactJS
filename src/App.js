@@ -31,6 +31,7 @@ function App() {
   // const [date, setDate] = useState(0);
   const [lineType, setLineType] = useState('daily');
   const [scale, setScale] = useState('linear');
+  const [openCollapse, setOpenCollapse] = useState('');
 
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
@@ -230,7 +231,12 @@ function App() {
             </div>
             <div className="table_body">
               {tableData.map((country, index) => (
-                  <TablE country={country} index={index}/>
+                  <TablE
+                    countryName={country.country}
+                    country={country} 
+                    index={index} 
+                    openCollapse={openCollapse} 
+                    onClick={(e) => {country.country===openCollapse?setOpenCollapse(''):setOpenCollapse(country.country);}}/>
                 ))
               }
             </div>

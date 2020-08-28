@@ -5,17 +5,16 @@ import './TablE.css';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
-function TablE({country, index}) {
-    const [open, setOpen] = useState(-1);
+function TablE({country, countryName, index, openCollapse='', ...props}) {
     return (
         <div className="row_body">
             <tr className={`table_body_row ${index%2==1?'row_odd':'row_even'}`}>
                 <td className="table_index">{index+1}</td>
                 <td className="table_country">
-                {country.country}
-                <IconButton className="table_arrow" onClick={(e) => {setOpen(-open);console.log(open);}}>
+                {countryName}
+                <IconButton className="table_arrow" onClick={props.onClick}>
                     {
-                    open===1
+                    countryName===openCollapse
                     ? <KeyboardArrowUpIcon style={{color: "rgba(200,200,200,0.8)"}} />
                     : <KeyboardArrowDownIcon style={{color: "rgba(200,200,200,0.8)"}}/>
                     }
@@ -32,8 +31,8 @@ function TablE({country, index}) {
                 </td>
             </tr>
             <div>
-                <Collapse in={open===1} timeout='auto' unmountOnExit>
-                    hi
+                <Collapse in={countryName===openCollapse} timeout='auto' unmountOnExit>
+                    hi {countryName} {index+1}
                 </Collapse>
             </div>
         </div>
