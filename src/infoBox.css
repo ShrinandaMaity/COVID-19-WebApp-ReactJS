@@ -61,5 +61,5 @@
 
 .infoBox:hover {
     background: linear-gradient(#0a024b, #300247) !important;
-    box-shadow: 0 0 4px rgb(250, 248, 248);
+    box-shadow: 0 0 4px rgba(255,255,255,0.9) !important;
 }

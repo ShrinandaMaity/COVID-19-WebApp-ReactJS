@@ -67,3 +67,28 @@
 .table_head td:not(:first-of-type) {
     margin-right: 10px;
 }
+
+.card_row1, .card_row2, .card_row3, .card_row4, .card_row5 {
+    display: flex !important;
+    justify-content: space-between;
+}
+
+.card_row0 {
+    width: max-content;
+    display: flex;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.card_heading {
+    font-size: 12px;
+}
+
+.card_data {
+    font-size: 18px;
+}
+
+.updated_icon {
+    margin-top: 1px;
+    margin-right: 2px;
+}
