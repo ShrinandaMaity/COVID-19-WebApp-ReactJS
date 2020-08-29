@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FormControl, Select, MenuItem, Card, CardContent, Button, IconButton, Collapse } from '@material-ui/core';
+import { FormControl, Select, MenuItem, Card, CardContent, Button, IconButton } from '@material-ui/core';
 import './App.css';
 import InfoBox from "./InfoBox";
 import Map from "./Map";
@@ -7,7 +7,7 @@ import LineGraph from './LineGraph';
 import TablE from './TablE';
 import './TablE.css';
 import './ToggleSwitch.css'
-import { sortData, prettyPrintStat } from './util';
+import { sortData } from './util';
 import "leaflet/dist/leaflet.css";
 import SwapVertSharpIcon from '@material-ui/icons/SwapVertSharp';
 import SortIcon from '@material-ui/icons/Sort';
@@ -21,7 +21,7 @@ function App() {
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
-  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
+  const [mapCenter, setMapCenter] = useState({ lat: 34, lng: -40 });
   const [mapZoom, setMapZoom] = useState(3);
   const [mapCountries, setMapCountries] = useState([]);
   const [casesType, setCasesType] = useState("cases");

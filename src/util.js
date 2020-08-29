@@ -9,7 +9,7 @@ const casesTypeColors = {
     },
     recovered: {
         hex: "#7dd71d",
-        multiplier: 800,
+        multiplier: 900,
     },
     deaths: {
         hex: "#222222",
@@ -17,7 +17,7 @@ const casesTypeColors = {
     },
     active: {
         hex: "#1020ed",
-        multiplier: 800,
+        multiplier: 900,
     }
 }
 
@@ -48,7 +48,7 @@ export const showDataOnMap = (data, casesType='cases') => (
             color={casesTypeColors[casesType].hex}
             fillColor={casesTypeColors[casesType].hex}
             radius={
-                Math.sqrt(country[casesType])*casesTypeColors[casesType].multiplier
+                Math.sqrt(Math.max(country[casesType],0))*casesTypeColors[casesType].multiplier
             }
         >
             <Popup>

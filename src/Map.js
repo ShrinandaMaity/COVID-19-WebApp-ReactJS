@@ -3,7 +3,7 @@ import "./Map.css";
 import { Map as LeafletMap, TileLayer } from "react-leaflet";
 import { showDataOnMap } from "./util";
 
-function Map({countries, casesType,  center, zoom}) {
+function Map({countries, casesType, center={ lat: 34, lng: -40 }, zoom=3}) {
     return (
         <div className="map">
             <LeafletMap center={center} zoom={zoom}>

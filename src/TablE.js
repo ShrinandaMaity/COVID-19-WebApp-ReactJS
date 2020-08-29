@@ -8,7 +8,7 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 function TablE({country, countryName, index, openCollapse='', ...props}) {
     return (
         <div className="row_body">
-            <tr className={`table_body_row ${index%2==1?'row_odd':'row_even'}`}>
+            <tr className={`table_body_row ${index%2==1?'row_even':'row_odd'}`}>
                 <td className="table_index">{index+1}</td>
                 <td className="table_country">
                 {countryName}
