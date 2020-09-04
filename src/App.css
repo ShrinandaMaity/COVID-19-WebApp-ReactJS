@@ -44,11 +44,6 @@ body {
     padding-left: 15px;
     width: 400px !important;
     height: 36px !important;
-    background: linear-gradient(to right, #06021d 18%, #330867 109%) !important;
-}
-
-.render:hover {
-    background: linear-gradient(to right, #0f0542 18%, #330867 109%) !important;
 }
 
 .MuiFormLabel-root {

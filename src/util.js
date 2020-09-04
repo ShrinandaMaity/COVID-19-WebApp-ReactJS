@@ -63,6 +63,15 @@ export const useStyles = makeStyles((theme) => ({
       height: 36,
       fontSize: 14,
       padding: 0,
+      '&[aria-selected="true"]': {
+        background: 'linear-gradient(to right, #0f0542 18%, #330867 109%)',
+      },
+      '&[aria-selected="false"]': {
+        background: 'linear-gradient(to right, #06021d 18%, #330867 109%)',
+      },
+      '&[data-focus="true"]': {
+        background: 'linear-gradient(to right, #0f0542 18%, #330867 109%)',
+      },
     },
     noOptions: {
       color: 'white',
