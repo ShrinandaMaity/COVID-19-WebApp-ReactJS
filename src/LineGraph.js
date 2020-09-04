@@ -200,7 +200,7 @@ function LineGraph({ casesType='cases', duration='120', className, country='worl
 
     useEffect(() => {
       let URL=`https://disease.sh/v3/covid-19/historical/all?lastdays=${120}`;
-      if(country!=='worldwide')
+      if(country!=='Worldwide')
         URL=`https://disease.sh/v3/covid-19/historical/${country}?lastdays=${120}`;
       const fetchData = async () => {
         await fetch(URL)
@@ -208,7 +208,7 @@ function LineGraph({ casesType='cases', duration='120', className, country='worl
             return response.json();
           })
           .then((data) => {
-            if(country==='worldwide')
+            if(country==='Worldwide')
               setDataset(data);
             else
               setDataset(data.timeline);

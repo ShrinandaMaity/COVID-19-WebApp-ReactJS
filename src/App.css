@@ -16,19 +16,6 @@ body {
     margin-bottom: 10px;
 }
 
-.app_dropdown {
-    background: linear-gradient(to top, rgb(30,51,168), #0d0635);
-    box-shadow: 0 0 2px #6486f3;
-}
-
-.app_dropdown:hover {
-    box-shadow: 0 0 4px #6486f3;
-}
-
-.select_dropdown {
-    color: white !important;
-}
-
 .app_header>h1 {
     text-transform: uppercase;
     background: linear-gradient(to right, #30CFD0 0%, #99ff99 100%);
@@ -44,13 +31,28 @@ body {
     justify-content: space-between;
 }
 
-.dropdown_item {
+.dropdown {
+    box-shadow: 2px 2px 5px #6486f3 !important;
+}
+
+.country_name {
+    margin-top: 7px;
+  }
+  
+.render {
     color: white !important;
+    padding-left: 15px;
+    width: 400px !important;
+    height: 36px !important;
     background: linear-gradient(to right, #06021d 18%, #330867 109%) !important;
 }
 
-.dropdown_item:hover {
+.render:hover {
     background: linear-gradient(to right, #0f0542 18%, #330867 109%) !important;
+}
+
+.MuiFormLabel-root {
+    color: rgb(255,255,255) !important;
 }
 
 .app_left {
@@ -80,11 +82,6 @@ body {
     flex-direction: column;
     flex-grow: 1;
 }
-
-/* .graph_list {
-    height: 100px;
-    overflow: auto;
-} */
 
 .app_graph {
     flex-grow: 1;
@@ -163,6 +160,13 @@ body {
 @media (max-width: 1295px) {
     .app_left_right {
         flex-direction: column;
+    }
+    .app_header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .dropdown {
+        margin-top: 13px;
     }
     .app_right {
         margin-top: 20px !important;

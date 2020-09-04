@@ -1,6 +1,7 @@
 import React from "react";
 import numeral from "numeral";
 import { Circle, Popup } from "react-leaflet";
+import { makeStyles } from '@material-ui/core/styles';
 
 const casesTypeColors = {
     cases: {
@@ -36,6 +37,39 @@ export const sortData = (data, sortBy='cases', sortOrder=1) => {
     })
     return sortedData;
 };
+
+export const useStyles = makeStyles((theme) => ({
+    popupIndicator: {
+      color: 'white',
+    },
+    clearIndicator: {
+      color: 'white',
+    },
+    listbox: {
+      padding: '0 0',
+      maxHeight: '400px',
+    },
+    inputRoot: {
+      color: "white",
+      "& .MuiOutlinedInput-notchedOutline": {
+        borderColor: "green"
+      },
+      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+        borderColor: "purple"
+      }
+    },
+    option: {
+      minHeight: 36,
+      height: 36,
+      fontSize: 14,
+      padding: 0,
+    },
+    noOptions: {
+      color: 'white',
+      background: 'linear-gradient(to right, #06021d 18%, #330867 109%)',
+      fontSize: 14,
+    },
+  }));
 
 export const prettyPrintStat = (stat) => 
     stat ? `${numeral(stat).format("0,0")}` : "0";

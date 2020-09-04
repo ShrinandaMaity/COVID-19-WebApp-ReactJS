@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FormControl, Select, MenuItem, Card, CardContent, Button, IconButton } from '@material-ui/core';
+import { Card, CardContent, Button, IconButton, TextField } from '@material-ui/core';
+import { Autocomplete } from '@material-ui/lab';
 import './App.css';
 import InfoBox from "./InfoBox";
 import Map from "./Map";
@@ -7,7 +8,7 @@ import LineGraph from './LineGraph';
 import TablE from './TablE';
 import './TablE.css';
 import './ToggleSwitch.css'
-import { sortData } from './util';
+import { sortData, useStyles } from './util';
 import "leaflet/dist/leaflet.css";
 import SwapVertSharpIcon from '@material-ui/icons/SwapVertSharp';
 import SortIcon from '@material-ui/icons/Sort';
@@ -18,7 +19,7 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 
 function App() {
   const [countries, setCountries] = useState([]);
-  const [country, setCountry] = useState("worldwide");
+  const [country, setCountry] = useState("Worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
   const [mapCenter, setMapCenter] = useState({ lat: 34, lng: -40 });
@@ -28,10 +29,10 @@ function App() {
   const [duration, setDuration] = useState('120');
   const [sortBy, setSortBy] = useState('cases');
   const [sortOrder, setSortOrder] = useState(1);
-  // const [date, setDate] = useState(0);
   const [lineType, setLineType] = useState('daily');
   const [scale, setScale] = useState('linear');
   const [openCollapse, setOpenCollapse] = useState('');
+  const classes = useStyles();
 
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
@@ -46,15 +47,16 @@ function App() {
       .then((response) => response.json())
       .then((data) => 
       {
-        const countries = data.map((country) => (
+        let countriess = data.map((country) => (
           {
             name: country.country,
             value: country.countryInfo.iso3,
           }
         ));
+        countriess.unshift({name: 'Worldwide', value: 'Worldwide',});
         setTableData(sortData(data));
         setMapCountries(data);
-        setCountries(countries);
+        setCountries(countriess);
       });
     };
     getCountriesData();
@@ -71,10 +73,10 @@ function App() {
     setTableData(x);
   }, [sortBy, sortOrder]);
 
-  const onCountryChange = async (event) => {
-    const countryCode = event.target.value;
+  const onCountryChange = async (name) => {
+    const countryCode = name;
 
-    const url = countryCode === "worldwide" 
+    const url = countryCode === "Worldwide" 
     ? "https://disease.sh/v3/covid-19/all"
     : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
     
@@ -83,10 +85,10 @@ function App() {
     .then(data => {
       setCountry(countryCode);
       setCountryInfo(data);
-      countryCode === "worldwide"
+      countryCode === "Worldwide"
       ? setMapCenter([34.80746, -40.4796])
       : setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
-      countryCode === "worldwide"
+      countryCode === "Worldwide"
       ? setMapZoom(3)
       : setMapZoom(4);
     })
@@ -114,16 +116,35 @@ function App() {
               COVID-19 Info
             </h1>
 
-            <FormControl variant="filled" className="app_dropdown">
-              <Select className="select_dropdown" variant="outlined" onChange={onCountryChange} value={country}>
-                <MenuItem className="dropdown_item" value="worldwide">Worldwide</MenuItem>
-                {
-                  countries.map((country) => (
-                  <MenuItem className="dropdown_item" value={country.name}>{country.name}</MenuItem>
-                  ))
+            <Autocomplete className="dropdown"
+              classes={classes}
+              fullWidth
+              id="country-select-demo"
+              style={{width: 250}}
+              options={countries}
+              autoHighlight
+              getOptionLabel={(option) => option.name}
+              onChange={(e,name) => {
+                if(name!==null && name.name!==null) {
+                  onCountryChange(name.name);
                 }
-              </Select>
-            </FormControl>
+              }}
+              renderOption={(option) => (
+                <div className="render">
+                  <div className="country_name">{option.name}</div>
+                </div>
+              )}
+              renderInput={(params) => (
+                <TextField className="textField"
+                  {...params}
+                  label="Select a country"
+                  variant="outlined"
+                  inputProps={{
+                    ...params.inputProps,
+                  }}
+                />
+              )}
+            />
 
           </div>
 
@@ -131,7 +152,7 @@ function App() {
                 <InfoBox
                   active={casesType === "cases"}
                   onClick={(e) => setCasesType('cases')}
-                  title="Coronavirus Cases" 
+                  title="Confirmed" 
                   cases={countryInfo.todayCases} 
                   total={countryInfo.cases}
                   casesType="cases"
@@ -148,7 +169,7 @@ function App() {
                 <InfoBox
                   active={casesType === "active"}
                   onClick={(e) => setCasesType('active')}
-                  title="Active Cases"
+                  title="Active"
                   cases={countryInfo.todayCases-countryInfo.todayDeaths-countryInfo.todayRecovered}
                   total={countryInfo.active}
                   casesType="active"
