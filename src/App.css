@@ -73,17 +73,22 @@ body {
 }
 
 .app_right .MuiCardContent-root {
+    padding: 0px !important;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
 }
 
 .app_graph {
+    margin-left: 20px;
+    margin-right: 20px;
     flex-grow: 1;
     margin-bottom: 10px;
 }
 
 .app_graphSettings {
+    margin-right: 20px;
+    margin-left: 20px;
     display: flex;
     margin-top: 15px;
     justify-content: space-between;

@@ -122,8 +122,8 @@ function TablE({country, countryName, index, openCollapse='', ...props}) {
                 <IconButton className="table_arrow" onClick={props.onClick}>
                     {
                     countryName===openCollapse
-                    ? <KeyboardArrowUpIcon style={{color: "rgba(200,200,200,0.8)"}} />
-                    : <KeyboardArrowDownIcon style={{color: "rgba(200,200,200,0.8)"}}/>
+                    ? <KeyboardArrowUpIcon style={{color: "rgba(200,200,200,0.8)", margin: '0px'}} />
+                    : <KeyboardArrowDownIcon style={{color: "rgba(200,200,200,0.8)", margin: '0px'}}/>
                     }
                 </IconButton>
                 </td>

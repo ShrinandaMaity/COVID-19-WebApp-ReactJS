@@ -16,6 +16,13 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import StorageIcon from '@material-ui/icons/Storage';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+
+function Arrow(props) {
+  const {direction, clickFunction} = props;
+  const icon = direction === 'left' ? <FaChevronLeft/> : <FaChevronRight/>;
+  return <div>{icon}</div>;
+}
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -74,21 +81,19 @@ function App() {
   }, [sortBy, sortOrder]);
 
   const onCountryChange = async (name) => {
-    const countryCode = name;
-
-    const url = countryCode === "Worldwide" 
+    const url = name === "Worldwide" 
     ? "https://disease.sh/v3/covid-19/all"
-    : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
+    : `https://disease.sh/v3/covid-19/countries/${name}`;
     
     await fetch(url)
     .then(response => response.json())
     .then(data => {
-      setCountry(countryCode);
+      setCountry(name);
       setCountryInfo(data);
-      countryCode === "Worldwide"
+      name === "Worldwide"
       ? setMapCenter([34.80746, -40.4796])
       : setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
-      countryCode === "Worldwide"
+      name === "Worldwide"
       ? setMapZoom(3)
       : setMapZoom(4);
     })
@@ -102,7 +107,7 @@ function App() {
       setSortOrder(1);
       setSortBy(event.target.value);
     }
-    console.log(setSortBy, setSortOrder);
+    // console.log(setSortBy, setSortOrder);
   };
 
   return (
@@ -120,7 +125,7 @@ function App() {
               classes={classes}
               fullWidth
               id="country-select-demo"
-              style={{width: 250}}
+              style={{width: 260}}
               options={countries}
               autoHighlight
               getOptionLabel={(option) => option.name}
@@ -250,16 +255,28 @@ function App() {
                 </td>
               </tr>
             </div>
-            <div className="table_body">
-              {tableData.map((country, index) => (
-                  <TablE
-                    countryName={country.country}
-                    country={country} 
-                    index={index} 
-                    openCollapse={openCollapse} 
-                    onClick={(e) => {country.country===openCollapse?setOpenCollapse(''):setOpenCollapse(country.country);}}/>
-                ))
-              }
+            <div className="card_swipe">
+              <Arrow className="swipe_arrow"
+                direction='left'
+                // clickFunction={() => onArrowClick('left')}
+              />
+              <Card className="card_today">
+                <div className="table_body">
+                  {tableData.map((country, index) => (
+                      <TablE
+                        countryName={country.country}
+                        country={country} 
+                        index={index} 
+                        openCollapse={openCollapse} 
+                        onClick={(e) => {country.country===openCollapse?setOpenCollapse(''):setOpenCollapse(country.country);}}/>
+                    ))
+                  }
+                </div>
+              </Card>
+              <Arrow className="arrow"
+                direction='right'
+                // clickFunction={() => onArrowClick('right')}
+              />
             </div>
             <div className="app_graphSettings">
                   <h3 className="app_graphTitle" >{casesType} ({country})</h3>
