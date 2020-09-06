@@ -33,6 +33,7 @@
 
 .swipe_arrow {
     cursor: pointer !important;
+    height: 50px;
 }
 
 .table_head {
@@ -217,8 +218,4 @@
     width: 60px;
     background-size: cover;
     border-radius: 4px;
-}
-
-svg {
-    height: 50px;
 }
