@@ -1,11 +1,25 @@
-.table_title {
+.table_heading {
     margin-top: 20px;
+    display: flex;
+    justify-items: center;
+    justify-content: space-between;
+    align-content: center;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table_title {
     margin-left: 20px;
+}
+
+.table_date {
+    margin-top: 7px;
+    margin-right: 20px;
 }
 
 .card_swipe {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     text-align: center;
     align-items: center;
 }
@@ -15,6 +29,10 @@
     box-shadow: 13px 16px 20px -15px black !important;
     /* z-index: -1; */
     width: calc(100%) !important;
+}
+
+.swipe_arrow {
+    cursor: pointer !important;
 }
 
 .table_head {
@@ -199,4 +217,8 @@
     width: 60px;
     background-size: cover;
     border-radius: 4px;
+}
+
+svg {
+    height: 50px;
 }

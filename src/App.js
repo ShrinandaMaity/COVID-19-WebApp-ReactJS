@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, Button, IconButton, TextField } from '@material-ui/core';
+import { Card, CardContent, Button, IconButton, TextField, Slide } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import './App.css';
 import InfoBox from "./InfoBox";
 import Map from "./Map";
 import LineGraph from './LineGraph';
 import TablE from './TablE';
+import Arrow from './Arrow';
 import './TablE.css';
 import './ToggleSwitch.css'
 import { sortData, useStyles } from './util';
@@ -16,13 +17,6 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import StorageIcon from '@material-ui/icons/Storage';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-
-function Arrow(props) {
-  const {direction, clickFunction} = props;
-  const icon = direction === 'left' ? <FaChevronLeft/> : <FaChevronRight/>;
-  return <div>{icon}</div>;
-}
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -34,11 +28,16 @@ function App() {
   const [mapCountries, setMapCountries] = useState([]);
   const [casesType, setCasesType] = useState("cases");
   const [duration, setDuration] = useState('120');
+  const [date, setDate] = useState(0);
+  const [yesterdayData, setYestetrdayData] = useState([]);
+  const [twoDaysAgoData, setTwoDaysAgoData] = useState([]);
   const [sortBy, setSortBy] = useState('cases');
   const [sortOrder, setSortOrder] = useState(1);
   const [lineType, setLineType] = useState('daily');
   const [scale, setScale] = useState('linear');
   const [openCollapse, setOpenCollapse] = useState('');
+  const [slideIn, setSlideIn] = useState(true);
+  const [slideDirection, setSlideDirection] = useState('down');
   const classes = useStyles();
 
   useEffect(() => {
@@ -66,7 +65,26 @@ function App() {
         setCountries(countriess);
       });
     };
+
+    const getYesterdayData = async () => {
+      await fetch("https://disease.sh/v3/covid-19/countries?yesterday=1")
+      .then((response) => response.json())
+      .then((data) => {
+        setYestetrdayData(data);
+      });
+    };
+
+    const getTwoDaysAgoData =async () => {
+      await fetch("https://disease.sh/v3/covid-19/countries?twoDaysAgo=1")
+      .then((response) => response.json())
+      .then((data) => {
+        setTwoDaysAgoData(data);
+      });
+    };
+
     getCountriesData();
+    getYesterdayData();
+    getTwoDaysAgoData();
   }, []);
 
   useEffect(() => {
@@ -76,9 +94,23 @@ function App() {
   }, [lineType]);
 
   useEffect(() => {
-    let x=sortData(mapCountries,sortBy,sortOrder);
+    let y = date===0?mapCountries:date===1?yesterdayData:twoDaysAgoData;
+    let x = sortData(y,sortBy,sortOrder);
     setTableData(x);
-  }, [sortBy, sortOrder]);
+  }, [sortBy, sortOrder, date]);
+
+  const onArrowClick = (direction) => {
+    const increment = direction==='left'?1:-1;
+    const newIndex =(date+increment+3)%3;
+    const oppDirection = direction==='left'?'right':'left';
+    setSlideDirection(direction);
+    setSlideIn(false);
+    setTimeout(() => {
+      setDate(newIndex);
+      setSlideDirection(oppDirection);
+      setSlideIn(true);
+    },700);
+  };
 
   const onCountryChange = async (name) => {
     const url = name === "Worldwide" 
@@ -107,7 +139,6 @@ function App() {
       setSortOrder(1);
       setSortBy(event.target.value);
     }
-    // console.log(setSortBy, setSortOrder);
   };
 
   return (
@@ -197,7 +228,12 @@ function App() {
 
         <Card className="app_right">
           <CardContent>
-            <h3 className="table_title">Cases by country</h3>
+            <div className="table_heading">
+              <h3 className="table_title">Cases by country</h3>
+              <Slide in={slideIn} direction={slideDirection} mountOnEnter>
+                <h4 className="table_date">{date===0?'Today':date===1?'Yesterday':'2 days ago'}</h4>
+              </Slide>
+            </div>
             <div className="table_head">
               <tr>
                 <td className="table_index">#</td>
@@ -258,24 +294,26 @@ function App() {
             <div className="card_swipe">
               <Arrow className="swipe_arrow"
                 direction='left'
-                // clickFunction={() => onArrowClick('left')}
+                clickFunction={() => onArrowClick('left')}
               />
-              <Card className="card_today">
-                <div className="table_body">
-                  {tableData.map((country, index) => (
-                      <TablE
-                        countryName={country.country}
-                        country={country} 
-                        index={index} 
-                        openCollapse={openCollapse} 
-                        onClick={(e) => {country.country===openCollapse?setOpenCollapse(''):setOpenCollapse(country.country);}}/>
-                    ))
-                  }
-                </div>
-              </Card>
-              <Arrow className="arrow"
+              <Slide className="card_today" in={slideIn} direction={slideDirection} mountOnEnter>
+                <Card className="card_today">
+                  <div className="table_body">
+                    {tableData.map((country, index) => (
+                        <TablE
+                          countryName={country.country}
+                          country={country} 
+                          index={index} 
+                          openCollapse={openCollapse} 
+                          onClick={(e) => {country.country===openCollapse?setOpenCollapse(''):setOpenCollapse(country.country);}}/>
+                      ))
+                    }
+                  </div>
+                </Card>
+              </Slide>
+              <Arrow className="swipe_arrow"
                 direction='right'
-                // clickFunction={() => onArrowClick('right')}
+                clickFunction={() => onArrowClick('right')}
               />
             </div>
             <div className="app_graphSettings">
