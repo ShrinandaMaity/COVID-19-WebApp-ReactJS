@@ -190,41 +190,45 @@ function App() {
           </div>
 
           <div className="app_stats">
-                <InfoBox
-                  active={casesType === "cases"}
-                  onClick={(e) => setCasesType('cases')}
-                  title="Confirmed" 
-                  cases={countryInfo.todayCases} 
-                  total={countryInfo.cases}
-                  casesType="cases"
-                />
-                <InfoBox
-                  active={casesType === "recovered"}
-                  onClick={(e) => setCasesType('recovered')}
-                  title="Recovered" 
-                  cases={countryInfo.todayRecovered} 
-                  total={countryInfo.recovered}
-                  casesType="recovered"
-                  Totalcases={countryInfo.cases}
-                />
-                <InfoBox
-                  active={casesType === "active"}
-                  onClick={(e) => setCasesType('active')}
-                  title="Active"
-                  cases={countryInfo.todayCases-countryInfo.todayDeaths-countryInfo.todayRecovered}
-                  total={countryInfo.active}
-                  casesType="active"
-                  Totalcases={countryInfo.cases}
-                />
-                <InfoBox
-                  active={casesType === "deaths"}
-                  onClick={(e) => setCasesType('deaths')}
-                  title="Deaths" 
-                  cases={countryInfo.todayDeaths} 
-                  total={countryInfo.deaths}
-                  casesType="deaths"
-                  Totalcases={countryInfo.cases}
-                />
+            <div className="app_stats_inside">
+              <InfoBox
+                active={casesType === "cases"}
+                onClick={(e) => setCasesType('cases')}
+                title="Confirmed" 
+                cases={countryInfo.todayCases} 
+                total={countryInfo.cases}
+                casesType="cases"
+              />
+              <InfoBox
+                active={casesType === "recovered"}
+                onClick={(e) => setCasesType('recovered')}
+                title="Recovered" 
+                cases={countryInfo.todayRecovered} 
+                total={countryInfo.recovered}
+                casesType="recovered"
+                Totalcases={countryInfo.cases}
+              />
+            </div>
+            <div className="app_stats_inside">
+              <InfoBox
+                active={casesType === "active"}
+                onClick={(e) => setCasesType('active')}
+                title="Active"
+                cases={countryInfo.todayCases-countryInfo.todayDeaths-countryInfo.todayRecovered}
+                total={countryInfo.active}
+                casesType="active"
+                Totalcases={countryInfo.cases}
+              />
+              <InfoBox
+                active={casesType === "deaths"}
+                onClick={(e) => setCasesType('deaths')}
+                title="Deaths" 
+                cases={countryInfo.todayDeaths} 
+                total={countryInfo.deaths}
+                casesType="deaths"
+                Totalcases={countryInfo.cases}
+              />
+            </div>
           </div>
 
           <Map casesType={casesType} countries={mapCountries} center={mapCenter} zoom={mapZoom} />

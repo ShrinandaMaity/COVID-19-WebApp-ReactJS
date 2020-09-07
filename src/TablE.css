@@ -90,6 +90,10 @@
     margin-top: 1px;
 }
 
+.table_head .table_index {
+    margin-top: 13.2px;
+}
+
 .table_country {
     width: 119px;
     width: calc(30.51%);
