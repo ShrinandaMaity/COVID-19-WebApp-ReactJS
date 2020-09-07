@@ -388,7 +388,7 @@ function App() {
 
       <div className="app_links">
         <IconButton>
-          <a href="https://github.com/kaustaav/COVID-19-WebApp-ReactJS"><GitHubIcon className="link_github" color="primary" fontSize="large" /></a>
+          <a href="https://github.com/kaustaav/COVID-19-WebApp-ReactJS"><GitHubIcon className="link_github" color="primary" style={{fontSize: 34}} /></a>
         </IconButton>
         <IconButton>
           <a href="https://disease.sh/docs/#/"><StorageIcon color="primary" style={{ fontSize: 45 }} className="link_api" /></a>
