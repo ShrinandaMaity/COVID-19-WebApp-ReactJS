@@ -102,6 +102,7 @@ body {
 .inactive {
     text-transform: none !important;
     color: white !important;
+    background: rgba(0,0,0,0.1) !important;
 }
 
 .active {

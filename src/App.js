@@ -101,12 +101,11 @@ function App() {
 
   const onArrowClick = (direction) => {
     const increment = direction==='left'?1:-1;
-    const newIndex =(date+increment+3)%3;
     const oppDirection = direction==='left'?'right':'left';
     setSlideDirection(direction);
     setSlideIn(false);
     setTimeout(() => {
-      setDate(newIndex);
+      setDate((date+increment)%3);
       setSlideDirection(oppDirection);
       setSlideIn(true);
     },700);
@@ -292,9 +291,10 @@ function App() {
               </tr>
             </div>
             <div className="card_swipe">
-              <Arrow className="swipe_arrow"
+              <Arrow 
+                name={`swipe_arrow${date!==2?'':'_disable'}`}
                 direction='left'
-                clickFunction={() => onArrowClick('left')}
+                clickFunction={() => {if(date!==2){onArrowClick('left')}}}
               />
               <Slide className="card_today" in={slideIn} direction={slideDirection} mountOnEnter>
                 <Card className="card_today">
@@ -311,9 +311,10 @@ function App() {
                   </div>
                 </Card>
               </Slide>
-              <Arrow className="swipe_arrow"
+              <Arrow 
+                name={`swipe_arrow${date!==0?'':'_disable'}`}
                 direction='right'
-                clickFunction={() => onArrowClick('right')}
+                clickFunction={() => {if(date!==0){onArrowClick('right')}}}
               />
             </div>
             <div className="app_graphSettings">
@@ -321,21 +322,21 @@ function App() {
               <div className="duration_toggle">
 
                 <Button 
-                  variant={`${duration==='120'? 'contained': 'outlined'}`}
+                  variant={`${duration==='120'? 'contained': 'text'}`}
                   className={`${duration==='120'? 'active': 'inactive'}`}
                   color="primary" 
                   onClick={(e) => setDuration('120')}>
                     120 days
                 </Button>
                 <Button 
-                  variant={`${duration==='60'? 'contained': 'outlined'}`} 
+                  variant={`${duration==='60'? 'contained': 'text'}`} 
                   className={`${duration==='60'? 'active': 'inactive'}`} 
                   color="primary" 
                   onClick={(e) => setDuration('60')}>
                     60 days
                 </Button>
                 <Button 
-                  variant={`${duration==='30'? 'contained': 'outlined'}`} 
+                  variant={`${duration==='30'? 'contained': 'text'}`} 
                   className={`${duration==='30'? 'active': 'inactive'}`} 
                   color="primary" 
                   onClick={(e) => setDuration('30')}>

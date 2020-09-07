@@ -31,6 +31,12 @@
     width: calc(100%) !important;
 }
 
+.swipe_arrow_disable {
+    color: transparent !important;
+    cursor: default !important;
+    height: 50px;
+}
+
 .swipe_arrow {
     cursor: pointer !important;
     height: 50px;
