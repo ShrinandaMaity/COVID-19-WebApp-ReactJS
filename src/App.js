@@ -99,6 +99,18 @@ function App() {
     setTableData(x);
   }, [sortBy, sortOrder, date]);
 
+  useEffect(() => {
+    if(country==="Worldwide") {
+      setMapCenter({ lat: 34.80746, lng: -40.4796 });
+      setMapZoom(3);
+    }
+    else {
+      setMapCenter({ lat: countryInfo.countryInfo.lat, lng: countryInfo.countryInfo.long });
+      setMapZoom(4);
+    }
+
+  }, [country]);
+
   const onArrowClick = (direction) => {
     const increment = direction==='left'?1:-1;
     const oppDirection = direction==='left'?'right':'left';
@@ -119,14 +131,8 @@ function App() {
     await fetch(url)
     .then(response => response.json())
     .then(data => {
-      setCountry(name);
       setCountryInfo(data);
-      name === "Worldwide"
-      ? setMapCenter([34.80746, -40.4796])
-      : setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
-      name === "Worldwide"
-      ? setMapZoom(3)
-      : setMapZoom(4);
+      setCountry(name);
     })
   };
 
