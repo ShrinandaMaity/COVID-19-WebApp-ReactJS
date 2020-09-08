@@ -98,6 +98,7 @@ body {
 .app_graphTitle {
     margin-top: 2px;
     margin-bottom: 12px;
+    text-transform: capitalize;
 }
 
 .inactive {
