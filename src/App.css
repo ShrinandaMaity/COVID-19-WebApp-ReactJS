@@ -4,7 +4,8 @@
 
 body {
     background: linear-gradient(to bottom right, #06021d 18%, #330867 109%);
-    background-color: #330867;
+    background-repeat: repeat-x !important;
+    min-height: 700px;
 }
 
 .app_left_right {

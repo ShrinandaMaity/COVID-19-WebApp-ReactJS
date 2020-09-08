@@ -24,11 +24,36 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>COVID-19 INFO</title>
+    <style>
+      .loader-container {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: calc(20%) !important;
+      }
+      .loader {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        border: 12px solid transparent;
+        border-top: 12px solid #ce1a1a;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: spin 0.8s linear infinite;
+      }
+      
+      @keyframes spin {
+        0%  { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <div class="loader-container">
+      <div class="loader"></div>
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

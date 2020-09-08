@@ -19,6 +19,7 @@ import StorageIcon from '@material-ui/icons/Storage';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("Worldwide");
   const [countryInfo, setCountryInfo] = useState({});
@@ -88,6 +89,16 @@ function App() {
   }, []);
 
   useEffect(() => {
+    fakeRequest().then(() => {
+       const el = document.querySelector(".loader-container");
+       if(el) {
+         el.remove();
+         setIsLoading(!isLoading);
+       }
+    });
+  }, []);
+
+  useEffect(() => {
     if(lineType==='daily') {
       setScale('linear');
     }
@@ -110,6 +121,10 @@ function App() {
     }
 
   }, [country]);
+
+  function fakeRequest() {
+    return new Promise(resolve => setTimeout(() => resolve(), 100));
+  }
 
   const onArrowClick = (direction) => {
     const increment = direction==='left'?1:-1;
@@ -145,6 +160,10 @@ function App() {
       setSortBy(event.target.value);
     }
   };
+
+  if(isLoading) {
+    return null;
+  }
 
   return (
     <div className="app">
