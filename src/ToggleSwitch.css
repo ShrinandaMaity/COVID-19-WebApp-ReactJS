@@ -76,13 +76,13 @@
     margin-right: 15px;
     float: right !important;
     padding-bottom: 1.5px;
-    box-shadow: inset 0px 0px 1.5px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 10px 10px 10px 10px rgba(0, 0, 0, 0.3) !important;
     border-radius: 5px;
 }
 
 .scale_button {
     margin: auto !important;
-    height: 22px !important;
+    height: 25px !important;
     font-size: 13px !important;
     text-transform: none !important;
     width: 80px !important;
