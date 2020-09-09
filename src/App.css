@@ -3,6 +3,7 @@
 }
 
 body {
+    /* min-width: 500px; */
     background: linear-gradient(to bottom right, #06021d 18%, #330867 109%);
     background-repeat: repeat-x !important;
     min-height: 700px;
@@ -82,7 +83,7 @@ body {
 
 .app_graph {
     margin-left: 20px;
-    margin-right: 20px;
+    margin-right: 10px;
     flex-grow: 1;
     margin-bottom: 10px;
 }
@@ -99,6 +100,11 @@ body {
     margin-top: 2px;
     margin-bottom: 12px;
     text-transform: capitalize;
+}
+
+.graph_option {
+    margin-top: 0px !important;
+    margin-bottom: 10px !important;
 }
 
 .inactive {
@@ -188,11 +194,52 @@ body {
 @media (max-width: 600px) {
     .app_stats {
         flex-direction: column;
-        /* background: tomato !important; */
     }
     .app_stats_inside:not(:last-child) {
         margin-right: 0px;
         margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 550px) {
+    .table_heading {
+        flex-direction: column;
+    }
+    .table_date {
+        margin-left: 20px;
+        width: max-content;
+    }
+
+    .map {
+        height: 400px !important;
+    }
+}
+
+@media (max-width: 401px) {
+    .app_left_right {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .app_header {
+        margin-left: 15px;
+    }
+    .app_stats {
+        margin-left: 10px;
+        margin-right: 8px;
+    }
+    .app_graphSettings {
+        flex-direction: column;
+        justify-content: start !important;
+    }
+    .app_graph {
+        margin-right: 0px !important;
+    }
+    .app_graphTitle {
+        width: max-content;
+    }
+    .duration_toggle {
+        width: max-content;
+        margin-bottom: 12px;
     }
 }
 

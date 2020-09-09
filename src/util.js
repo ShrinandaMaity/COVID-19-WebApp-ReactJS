@@ -50,7 +50,7 @@ export const useStyles = makeStyles((theme) => ({
       maxHeight: '400px',
     },
     inputRoot: {
-      color: "white",
+      color: "rgb(255,255,255)",
       "& .MuiOutlinedInput-notchedOutline": {
         borderColor: "green"
       },

@@ -17,6 +17,25 @@
     margin-right: 20px;
 }
 
+.table_everything {
+    box-shadow: 13px 16px 20px -15px black !important;
+    /* position: relative !important; */
+    width: 100%;
+    overflow-x: auto !important;
+    overflow-y: auto !important;
+}
+
+.table_inside {
+    min-width: 450px;
+    /* position: relative !important; */
+    overflow: auto !important;
+}
+
+.fix {
+    /* background: black; */
+    /* position: absolute; */
+}
+
 .card_swipe {
     display: flex;
     justify-content: space-between;
@@ -26,8 +45,6 @@
 
 .card_today {
     background: transparent !important;
-    box-shadow: 13px 16px 20px -15px black !important;
-    /* z-index: -1; */
     width: calc(100%) !important;
 }
 
@@ -37,6 +54,7 @@
     height: 50px;
 }
 
+
 .swipe_arrow {
     cursor: pointer !important;
     height: 50px;
@@ -44,15 +62,13 @@
 
 .table_head {
     margin-top: 15px;
-    margin-left: 17px;
-    margin-right: 17px;
     color: white;
     background-color: rgba(255, 255, 255, 0.2);
 }
 
 .table_body {
-    overflow: auto;
     height: 400px;
+    overflow: auto;
     color: white;    
 }
 
@@ -63,16 +79,10 @@
     justify-content: space-between;
 }
 
+.table_head td,
 .row_body td {
-    padding: 8px;
     padding-top: 10px;
     padding-bottom: 10px;
-}
-
-.table_head td {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 0px;
 }
 
 .row_odd {
@@ -84,26 +94,23 @@
 }
 
 .table_index {
-    width: 21px;
     width: calc(5.3846%);
     font-size: 12px;
-    margin-top: 1px;
-}
-
-.table_head .table_index {
-    margin-top: 13.2px;
+    padding-top: 13px !important;
 }
 
 .table_country {
-    width: 119px;
     width: calc(30.51%);
     text-align: left;
     display: flex;
     justify-content: space-between;
 }
 
-.table_head .table_country {
-    justify-content: center;
+.table_head .table_country,
+.table_head .table_cases,
+.table_head .table_recovered,
+.table_head .table_deaths {
+    justify-content: left;
 }
 
 .table_arrow {
@@ -113,14 +120,12 @@
 .table_cases, 
 .table_recovered,
 .table_deaths {
-    width: 90px;
     width: calc(23.077%);
     text-align: left;
     display: flex;
 }
 
 .table_deaths {
-    width: 71px;
     width: calc(18.05%);
 }
 
@@ -129,14 +134,12 @@
 .table_body .table_recovered,
 .table_body .table_deaths {
     word-break: break-word;
+    padding-left: 8px;
+    padding-right: 2px;
 }
 
 .table_body_row td:not(:last-child) {
     border-right: 1px solid rgba(255,255,255,0.2);
-}
-
-.table_head td:not(:first-of-type) {
-    margin-right: 10px;
 }
 
 .card_collapse {

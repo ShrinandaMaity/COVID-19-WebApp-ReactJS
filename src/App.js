@@ -262,84 +262,89 @@ function App() {
                 <h4 className="table_date">{date===0?'Today':date===1?'Yesterday':'2 days ago'}</h4>
               </Slide>
             </div>
-            <div className="table_head">
-              <tr>
-                <td className="table_index">#</td>
-                <td className="table_country">
-                  Country
-                  <input type="radio" className="switch-input" value="country" onClick={onSortChange} id="country" />
-                  <label for="country">
-                  {
-                    sortBy!=='country'
-                    ? <SwapVertSharpIcon  className="sortButton" color="disabled"/>
-                    : sortOrder===1
-                    ? <SortIcon className="sortButton" style={{ color: "rgb(255,255,0)" }} />
-                    : <SortIcon className="sortButton_rotate" style={{ color: "rgb(255,255,0)" }} />
-                  }
-                  </label>
-                </td>
-                <td className="table_cases">
-                  Confirmed
-                  <input type="radio" className="switch-input" value="cases" onClick={onSortChange} id="cases" />
-                  <label for="cases">
-                    {
-                      sortBy!=='cases'
-                      ? <SwapVertSharpIcon className="sortButton" color="disabled"/>
-                      : sortOrder===1
-                      ? <SortIcon className="sortButton" color="secondary" />
-                      : <SortIcon className="sortButton_rotate" color="secondary" />
-                    }
-                  </label>
-                </td>
-                <td className="table_recovered">
-                  Recovered
-                  <input type="radio" className="switch-input" value="recovered" onClick={onSortChange} id="recovered" />
-                  <label for="recovered">
-                    {
-                      sortBy!=='recovered'
-                      ? <SwapVertSharpIcon className="sortButton" color="disabled"/>
-                      : sortOrder===1
-                      ? <SortIcon className="sortButton" style={{ color: "rgb(173,255,47)" }}/>
-                      : <SortIcon className="sortButton_rotate" style={{ color: "rgb(173,255,47)" }}/>
-                    }
-                  </label>
-                </td>
-                <td className="table_deaths">
-                  Deaths
-                  <input type="radio" className="switch-input" value="deaths" onClick={onSortChange} id="deaths" />
-                  <label for="deaths">
-                    {
-                      sortBy!=='deaths'
-                      ? <SwapVertSharpIcon className="sortButton" color="disabled"/>
-                      : sortOrder===1
-                      ? <SortIcon className="sortButton" style={{ color: "rgb(10,10,10)" }}/>
-                      : <SortIcon className="sortButton_rotate" style={{ color: "rgb(10,10,10)" }}/>
-                    }
-                  </label>
-                </td>
-              </tr>
-            </div>
+            
             <div className="card_swipe">
               <Arrow 
                 name={`swipe_arrow${date!==2?'':'_disable'}`}
                 direction='left'
                 clickFunction={() => {if(date!==2){onArrowClick('left')}}}
               />
-              <Slide className="card_today" in={slideIn} direction={slideDirection} mountOnEnter>
-                <Card className="card_today">
-                  <div className="table_body">
-                    {tableData.map((country, index) => (
-                        <TablE
-                          countryName={country.country}
-                          country={country} 
-                          index={index} 
-                          openCollapse={openCollapse} 
-                          onClick={(e) => {country.country===openCollapse?setOpenCollapse(''):setOpenCollapse(country.country);}}/>
-                      ))
-                    }
+              <div className="table_everything">
+                <div className="table_inside">
+                  <div className="table_head">
+                    <tr>
+                      <td className="table_index fix">#</td>
+                      <td className="table_country fix">
+                        Country
+                        <input type="radio" className="switch-input" value="country" onClick={onSortChange} id="country" />
+                        <label for="country">
+                        {
+                          sortBy!=='country'
+                          ? <SwapVertSharpIcon  className="sortButton" color="disabled"/>
+                          : sortOrder===1
+                          ? <SortIcon className="sortButton" style={{ color: "rgb(255,255,0)" }} />
+                          : <SortIcon className="sortButton_rotate" style={{ color: "rgb(255,255,0)" }} />
+                        }
+                        </label>
+                      </td>
+                      <td className="table_cases">
+                        Confirmed
+                        <input type="radio" className="switch-input" value="cases" onClick={onSortChange} id="cases" />
+                        <label for="cases">
+                          {
+                            sortBy!=='cases'
+                            ? <SwapVertSharpIcon className="sortButton" color="disabled"/>
+                            : sortOrder===1
+                            ? <SortIcon className="sortButton" color="secondary" />
+                            : <SortIcon className="sortButton_rotate" color="secondary" />
+                          }
+                        </label>
+                      </td>
+                      <td className="table_recovered">
+                        Recovered
+                        <input type="radio" className="switch-input" value="recovered" onClick={onSortChange} id="recovered" />
+                        <label for="recovered">
+                          {
+                            sortBy!=='recovered'
+                            ? <SwapVertSharpIcon className="sortButton" color="disabled"/>
+                            : sortOrder===1
+                            ? <SortIcon className="sortButton" style={{ color: "rgb(173,255,47)" }}/>
+                            : <SortIcon className="sortButton_rotate" style={{ color: "rgb(173,255,47)" }}/>
+                          }
+                        </label>
+                      </td>
+                      <td className="table_deaths">
+                        Deaths
+                        <input type="radio" className="switch-input" value="deaths" onClick={onSortChange} id="deaths" />
+                        <label for="deaths">
+                          {
+                            sortBy!=='deaths'
+                            ? <SwapVertSharpIcon className="sortButton" color="disabled"/>
+                            : sortOrder===1
+                            ? <SortIcon className="sortButton" style={{ color: "rgb(10,10,10)" }}/>
+                            : <SortIcon className="sortButton_rotate" style={{ color: "rgb(10,10,10)" }}/>
+                          }
+                        </label>
+                      </td>
+                    </tr>
                   </div>
-                </Card>
-              </Slide>
+                  <Slide className="card_today" in={slideIn} direction={slideDirection} mountOnEnter>
+                    <Card className="card_today">
+                      <div className="table_body">
+                        {tableData.map((country, index) => (
+                            <TablE
+                              countryName={country.country}
+                              country={country} 
+                              index={index} 
+                              openCollapse={openCollapse} 
+                              onClick={(e) => {country.country===openCollapse?setOpenCollapse(''):setOpenCollapse(country.country);}}/>
+                          ))
+                        }
+                      </div>
+                    </Card>
+                  </Slide>
+                </div>
+              </div>
               <Arrow 
                 name={`swipe_arrow${date!==0?'':'_disable'}`}
                 direction='right'
@@ -347,7 +352,7 @@ function App() {
               />
             </div>
             <div className="app_graphSettings">
-                  <h3 className="app_graphTitle" >{casesType} ({country})</h3>
+              <h3 className="app_graphTitle" >{casesType} ({country})</h3>
               <div className="duration_toggle">
 
                 <Button 
@@ -373,36 +378,32 @@ function App() {
                 </Button>
               </div>
             </div>
-            <div className="graph_list">
-              <div className="line_graph">
-                <div className="app_graph">
-                  <LineGraph duration={duration} casesType={casesType} country={country} lineType={lineType} scale={scale}/>
-                </div>
-                <div>
-                  <div class="switch switch-blue">
-                    <input type="radio" class="switch-input" onChange={(e) => {setLineType(e.target.value)}} name="lineType" value="daily" id="daily"/>
-                    <label for="daily" class="switch-label switch-label-off">Daily</label>
-                    <input type="radio" class="switch-input" onChange={(e) => {setLineType(e.target.value)}} name="lineType" value="cumulative" id="cumulative"/>
-                    <label for="cumulative" class="switch-label switch-label-on">Cumulative</label>
-                    <span class="switch-selection"></span>
-                  </div>
-                  <div className="toggle_scale">
-                    <Button 
-                      variant='contained'
-                      className={`scale_button ${scale==='linear'?'active_button':'inactive_button'}`}
-                      color={`${scale==='linear'?'primary':'secondary'}`}
-                      onClick={(e) => setScale('linear')}>
-                        Linear
-                    </Button>
-                    <Button 
-                      variant='contained'
-                      className={`scale_button ${lineType==='daily'?'hide_button':scale==='linear'?'inactive_button':'active_button'}`}
-                      color={`${lineType==='daily'?'disabled':scale==='linear'?'secondary':'primary'}`}
-                      onClick={(e) => setScale('logarithmic')}>
-                        Logarithmic
-                    </Button>
-                  </div>
-                </div>
+            <div className="app_graph">
+              <LineGraph duration={duration} casesType={casesType} country={country} lineType={lineType} scale={scale}/>
+            </div>
+            <div className="graph_option">
+              <div class="switch switch-blue">
+                <input type="radio" class="switch-input" onChange={(e) => {setLineType(e.target.value)}} name="lineType" value="daily" id="daily"/>
+                <label for="daily" class="switch-label switch-label-off">Daily</label>
+                <input type="radio" class="switch-input" onChange={(e) => {setLineType(e.target.value)}} name="lineType" value="cumulative" id="cumulative"/>
+                <label for="cumulative" class="switch-label switch-label-on">Cumulative</label>
+                <span class="switch-selection"></span>
+              </div>
+              <div className="toggle_scale">
+                <Button 
+                  variant='contained'
+                  className={`scale_button ${scale==='linear'?'active_button':'inactive_button'}`}
+                  color={`${scale==='linear'?'primary':'secondary'}`}
+                  onClick={(e) => setScale('linear')}>
+                    Linear
+                </Button>
+                <Button 
+                  variant='contained'
+                  className={`scale_button ${lineType==='daily'?'hide_button':scale==='linear'?'inactive_button':'active_button'}`}
+                  color={`${lineType==='daily'?'disabled':scale==='linear'?'secondary':'primary'}`}
+                  onClick={(e) => setScale('logarithmic')}>
+                    Logarithmic
+                </Button>
               </div>
             </div>
           </CardContent>
